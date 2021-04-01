@@ -1,0 +1,77 @@
+{
+  "name": "date-time-adapter",
+  "display_name": "DateTime Adapter",
+  "version": "1.1.3",
+  "description": "Date Time addon for WebThingsIO Gateway",
+  "author": "tomasy",
+  "main": "main.py",
+  "keywords": [
+    "mozilla",
+    "webthings",
+    "iot",
+    "adapter",
+    "konnected",
+    "alarm"
+  ],
+  "homepage": "https://github.com/WTIOAddons/konnected-adapter",
+  "license": "MPL-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WTIOAddons/konnected-adapter"
+  },
+  "bugs": {
+    "url": "https://github.com/WTIOAddons/konnected-adapter/issues"
+  },
+  "files": [
+    "LICENSE",
+    "SHA256SUMS",
+    "lib",
+    "main.py",
+    "package.json",
+    "manifest.json",
+    "pkg/__init__.py",
+    "pkg/config.py",
+    "pkg/konnected_adapter.py",
+    "pkg/konnected_device.py",
+    "pkg/konnected_property.py",
+    "pkg/endpoint.py",
+    "pkg/konnected.py",
+    "pkg/util.py",
+    "README.md"
+  ],
+  "moziot": {
+    "api": {
+      "min": 2,
+      "max": 2
+    },
+    "enabled": false,
+    "plugin": true,
+    "exec": "python3 {path}/main.py",
+    "config": {
+      "log_level": "WARNING",
+      "endpiont" : "wlan0"
+    },
+    "schema": {
+      "type": "object",
+      "required": [
+        "endpoint"
+      ],
+      "description": "Configuration for konnected device",
+      "properties": {
+        "log_level": {
+          "type": "string",
+          "enum": [
+            "WARNING",
+            "INFO",
+            "DEBUG"
+          ],
+          "description": "Log level. Use WARNING as standard"
+        },
+        "endpoint": {
+          "type": "string",
+          "description": "Interface on rpi that konnected will notify (wlan0)"
+        }
+      }
+    }
+  }
+}
