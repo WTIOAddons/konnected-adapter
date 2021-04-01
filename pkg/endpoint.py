@@ -6,7 +6,6 @@ import re
 import cgi
 import json
 import threading
-import socket
 import fcntl
 import struct
 import time
