@@ -10,8 +10,8 @@ import socket
 import fcntl
 import struct
 import time
-from konnected_adapter import KonnectedAdapter
 from urllib import parse
+from .konnected_adapter import KonnectedAdapter
 from pkg import konnected
 
 z1 = 1
