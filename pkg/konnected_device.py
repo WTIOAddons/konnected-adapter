@@ -7,7 +7,7 @@ import time
 from gateway_addon import Device, Event, Action
 from .util import KI
 from .konnected_property import KITempProperty, KIHumidProperty, \
-                                KIAlarmProperty
+                                KIAlarmProperty, KIDoorProperty
 
 
 class KIDevice(Device):
@@ -65,11 +65,13 @@ class KonnectedDevice(KIDevice):
         """
         KIDevice.__init__(self, adapter, _id)
         self._context = 'https://webthings.io/schemas'
-        self._type = ['BinarySensor', 'MultiLevelSensor']
+        self._type = ['OnOffSwitch','Alarm' 
+                      'DoorSensor']
         self.ki = KI(_config.endpoint)
 
         # logging.info('sunset: %s sunrise: %s', self.sunset, self.sunrise)
 
+        self.add_property(KIArmedProperty(self, self.ki))
         self.add_property(KITempProperty(self, self.ki))
         self.add_property(KIHumidProperty(self, self.ki))
         self.add_property(KIAlarmProperty(self, self.ki))

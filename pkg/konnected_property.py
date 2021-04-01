@@ -93,6 +93,20 @@ class KIHumidProperty(KonnectedProperty):
     def get_new_value(self):
         return self.ki.get_humidity()
 
+class KIArmedProperty(KonnectedProperty):
+    """Armed boolean property type."""
+    def __init__(self, device, ki):
+        KonnectedProperty.__init__(self, device,
+                                  'armed', {'title': 'Armed',
+                                               'label': 'Armed',
+                                               'type': 'boolean',
+                                               '@type': 'OnOffProperty',
+                                               'readOnly': True})
+        self.ki = ki
+
+    def get_new_value(self):
+        return self.ki.get_alarm()
+
 class KIAlarmProperty(KonnectedProperty):
     """Alarm integer property type."""
     def __init__(self, device, ki):
@@ -100,7 +114,7 @@ class KIAlarmProperty(KonnectedProperty):
                                   'alarm', {'title': 'Siren',
                                                'label': 'Siren',
                                                'type': 'boolean',
-                                               '@type': 'AlarmProperty'
+                                               '@type': 'AlarmProperty',
                                                'readOnly': True})
         self.ki = ki
 
