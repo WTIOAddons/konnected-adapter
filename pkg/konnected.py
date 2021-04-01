@@ -119,3 +119,24 @@ def findDevices():
        klist.append(konnected_dev(d))
     # print(klist)
     return klist
+
+def get_ip_address(ifname):
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    return socket.inet_ntoa(fcntl.ioctl(
+        s.fileno(),
+        0x8915,  # SIOCGIFADDR
+        struct.pack('256s', ifname[:15].encode('utf8'))
+    )[20:24])
+
+def provision_dev(interface, kdev):
+    ip = get_ip_address(interface)
+    port = 8001
+    sensors = [{"pin":1},{"pin":2},{"pin":5},
+               {"pin":6},{"pin":7},{"pin":9}]
+    actuators = [{"pin":8,"trigger":1}]
+    dht_sensors=[] # [{"pin":9,"poll_interval":2}]
+    ds18b20_sensors=[]
+    logging.info('kdev: %s', kdev)
+    kdev.provision(ip, port, sensors, actuators, dht_sensors,
+                   ds18b20_sensors)
+

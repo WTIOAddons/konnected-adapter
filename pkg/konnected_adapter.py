@@ -5,7 +5,6 @@ from gateway_addon import Adapter
 from .config import Config
 from .konnected_device import KonnectedDevice
 from pkg import konnected
-from pkg import endpoint
 
 
 class KonnectedAdapter(Adapter):
@@ -43,7 +42,7 @@ class KonnectedAdapter(Adapter):
             if self.get_device(dev.sn) is None:
                 self.handle_device_added(KonnectedDevice(self, dev.sn,
                                                          self._config))
-                endpoint.provision_dev(self._config.endpiont, dev)
+                konnected.provision_dev(self._config.endpiont, dev)
             else:
                 logging.debug('Device: %s was already created', dev.sn)
         logging.debug('END Pairing')

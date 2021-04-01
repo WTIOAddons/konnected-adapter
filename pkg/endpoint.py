@@ -11,7 +11,7 @@ import fcntl
 import struct
 import time
 from urllib import parse
-from .konnected_adapter import KonnectedAdapter
+from gateway_addon import Adapter
 from pkg import konnected
 
 z1 = 1
@@ -74,14 +74,6 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
 
         self.end_headers()
 
-def get_ip_address(ifname):
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    return socket.inet_ntoa(fcntl.ioctl(
-        s.fileno(),
-        0x8915,  # SIOCGIFADDR
-        struct.pack('256s', ifname[:15].encode('utf8'))
-    )[20:24])
-
 class Thread(threading.Thread):
     def __init__(self, ip, port, adapter):
         threading.Thread.__init__(self)
@@ -96,27 +88,15 @@ class Thread(threading.Thread):
 
 
 def start_kserver(interface, adapter):
-    ip = get_ip_address(interface)
+    ip = konnected.get_ip_address(interface)
     port = 8001
     thread = Thread(ip, port, adapter)
-
-def provision_dev(interface, kdev):
-    ip = get_ip_address(interface)
-    port = 8001
-    sensors = [{"pin":1},{"pin":2},{"pin":5},
-               {"pin":6},{"pin":7},{"pin":9}]
-    actuators = [{"pin":8,"trigger":1}]
-    dht_sensors=[] # [{"pin":9,"poll_interval":2}]
-    ds18b20_sensors=[]
-    logging.info('kdev: %s', kdev)
-    kdev.provision(ip, port, sensors, actuators, dht_sensors,
-                   ds18b20_sensors)
 
 def main():
     kdevs = konnected.findDevices()
     start_kserver('wlan0', None)
     for kdev in kdevs:
-        provision_dev('wlan0', kdev)
+        konnected.provision_dev('wlan0', kdev)
     time.sleep(100000) # todo: set timeout to 1 day, refresh kdevs
 
 if __name__ == '__main__':
