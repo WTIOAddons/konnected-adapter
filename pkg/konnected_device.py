@@ -80,7 +80,8 @@ class KonnectedDevice(KIDevice):
         {
             'title': 'Siren',
             'description': 'Sound the siren',
-            'type': 'string'
+            'type': 'string',
+            '@type':'AlarmEvent'
         })
         self.name = 'Konnected-'+str(_id)
         self.description = 'Konnected device'
