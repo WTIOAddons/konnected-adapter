@@ -2,6 +2,7 @@
 
 import logging
 import threading
+import time
 
 from gateway_addon import Device, Event, Action
 from .util import KI
