@@ -114,8 +114,10 @@ class KonnectedDevice(KIDevice):
                           action.input['sound'])
             if action.input['sound'] == True:
                 self.set_property('alarm', True)
+                self.ki.set_alarm(True)
             else:
                 self.set_property('alarm', False)
+                self.ki.set_alarm(False)
         # todo: actually sound the alarm or silence it
         return
 
@@ -138,4 +140,4 @@ class KonnectedDevice(KIDevice):
     def check_send_event(self, event):
         event = Event(self, event.name(), event.state() )
         self.event_notify(event)
-        logging.info('New event ' + event_name)
+        logging.info('New event ' + event.name())

@@ -28,6 +28,7 @@ class KIEvent():
 class KI():
     def __init__(self, endpoint):
         self.endpoint = endpoint
+        self.alarm = False
         logging.info('endpoint: %s', self.endpoint)
         self.eventlist = []
     
@@ -36,7 +37,19 @@ class KI():
             return True
         else:
             return False
-    
+
+    def get_temperature(self):
+        return 0
+
+    def get_humidity(self):
+        return 0
+
+    def get_alarm(self):
+        return self.alarm
+
+    def set_alarm(self, alarm):
+        self.alarm = alarm
+
     def set_pin(self, pin, value):
         self.eventlist.append(KIEvent(pin,value))
 
