@@ -31,8 +31,6 @@ class KI():
     
     def has_event(self):
         if len(self.eventlist) > 0:
-            print('value is:')
-            print(self.eventlist[0].value)
             return True
         else:
             return False
@@ -56,6 +54,15 @@ class KI():
         self.zones[zone-1] = status
         
     def set_pin(self, pin, value):
+        switcher = {
+            1: 1,
+            2: 2,
+            5: 3,
+            6: 4,
+            7: 5,
+            9: 6,
+        }
+        self.set_zone_status(switcher.get(pin,1), value)
         self.eventlist.append(KIEvent(pin,value))
 
     def next_event(self):
