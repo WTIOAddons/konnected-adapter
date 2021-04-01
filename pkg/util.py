@@ -16,8 +16,8 @@ class KIEvent():
 
     def name(self):
         swState = {
-            0: "Closed",
-            1: "Open"
+            '0': "Closed",
+            '1': "Open"
         }
         return "Zone"+swState.get(self.value,"Closed")
 
