@@ -16,10 +16,10 @@ class KIEvent():
 
     def name(self):
         swState = {
-            0: "Closed",
-            1: "Open"
+            0: "closed",
+            1: "open"
         }
-        return "Zone"+swState.get(self.value,"Closed")
+        return "zone_"+swState.get(self.value,"unknown")
 
 class KI():
     def __init__(self, endpoint):
