@@ -4,8 +4,8 @@ import logging
 import math
 
 class KIEvent():
-    def __init__(self, pin, value):
-        self.pin = pin
+    def __init__(self, zone, value):
+        self.zone = zone
         self.value = value
 
     def state(self):
@@ -13,6 +13,9 @@ class KIEvent():
             return True
         else:
             return False
+
+    def zone(self):
+        return self.zone
 
     def name(self):
         swState = {
@@ -63,7 +66,7 @@ class KI():
             9: 6,
         }
         self.set_zone_status(switcher.get(pin,1), value)
-        self.eventlist.append(KIEvent(pin,value))
+        self.eventlist.append(KIEvent(switcher.get(pin,1),value))
 
     def next_event(self):
         if self.has_event():
