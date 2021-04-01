@@ -31,6 +31,8 @@ class KI():
     
     def has_event(self):
         if len(self.eventlist) > 0:
+            print('value is:')
+            print(self.eventlist[0].value)
             return True
         else:
             return False
