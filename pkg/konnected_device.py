@@ -73,61 +73,47 @@ class KonnectedDevice(KIDevice):
         self.add_property(KITempProperty(self, self.ki))
         self.add_property(KIHumidProperty(self, self.ki))
         self.add_property(KIAlarmProperty(self, self.ki))
-        self.addZoneEvent('1');
-        self.addZoneEvent('2');
-        self.addZoneEvent('3');
-        self.addZoneEvent('4');
-        self.addZoneEvent('5');
-        self.addZoneEvent('6');
-        self.add_action('alarm',
+        for zone in range(1,7): # 1-6 zones
+            self.add_property(KIDoorProperty(self, self.ki, zone))
+        self.add_zone_events();
+        self.add_action('siren',
         {
-            'title': 'Alarm',
-            'description': 'Sound the siren or silence it',
-            'input': {
-                'type': 'object',
-                'required': [
-                    'sound',
-                    'duration' # duration is ignored for now
-                ],
-                'properties': {
-                    'sound': {
-                        'type': 'boolean'
-                    },
-                    'duration': {
-                        'type': 'integer',
-                        'minimum': 1,
-                        'unit': 'milliseconds',
-                    },
-                },
-            },
+            'title': 'Siren',
+            'description': 'Sound the siren',
+            'type': 'string'
         })
-        self.name = 'Konnected'
-        self.description = 'Konnected desc'
+        self.name = 'Konnected-'+str(_id)
+        self.description = 'Konnected device'
         self.init()
         logging.debug('Konnected %s', self.as_dict())
 
     def perform_action(self, action):
         # can do a while here to loop for a bit and then turn it off
         # or can just leave it on until user shuts it off        
-        if action.name() == 'alarm':
-            logging.debug('Konnected.perform_action: sound the alarm %s',
-                          action.input['sound'])
+        if action.name() == 'siren':
+            logging.debug('Konnected.perform_action: sound the alarm %s')
             if action.input['sound'] == True:
                 self.set_property('alarm', True)
                 self.ki.set_alarm(True)
             else:
                 self.set_property('alarm', False)
                 self.ki.set_alarm(False)
+        action.finish()
         # todo: actually sound the alarm or silence it
         return
 
-    def addZoneEvent(self, zone):
-        self.add_event('isopenzone'+zone, {
-            'title': 'IsOpenZone'+zone, 'label':'IsOpenZone'+zone,
-            'description': 'Is Zone '+zone+' opened',
-            'type': 'boolean'
+    def add_zone_events(self):
+        self.add_event('zone_open', {
+            'title': 'ZoneOpen', 'label':'ZoneOpen',
+            'description': 'Zone opened',
+            'type': 'integer'
         })
-        
+        self.add_event('zone_closed', {
+            'title': 'ZoneClosed', 'label':'ZoneClosed',
+            'description': 'Zone closed',
+            'type': 'integer'
+        })
+
     def check(self):
         self.check_trigger()
 

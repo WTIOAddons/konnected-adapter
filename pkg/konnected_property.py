@@ -94,12 +94,27 @@ class KIHumidProperty(KonnectedProperty):
         return self.ki.get_humidity()
 
 class KIAlarmProperty(KonnectedProperty):
-    """Hour integer property type."""
+    """Alarm integer property type."""
     def __init__(self, device, ki):
         KonnectedProperty.__init__(self, device,
-                                  'alarm', {'title': 'Alarm',
-                                               'label': 'Alarm',
+                                  'alarm', {'title': 'Siren',
+                                               'label': 'Siren',
                                                'type': 'boolean',
+                                               '@type': 'AlarmProperty'
+                                               'readOnly': True})
+        self.ki = ki
+
+    def get_new_value(self):
+        return self.ki.get_alarm()
+
+class KIDoorProperty(KonnectedProperty):
+    """Alarm integer property type."""
+    def __init__(self, device, ki, zone):
+        KonnectedProperty.__init__(self, device,
+                                  'zone_'+zone, {'title': 'Zone'+zone,
+                                               'label': 'Zone'+zone,
+                                               'type': 'boolean',
+                                               '@type': 'OpenProperty'
                                                'readOnly': True})
         self.ki = ki
 
