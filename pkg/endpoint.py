@@ -44,7 +44,9 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
                 if self.adapter is not None:
                     # todo get serial number from last 6 hex bytes of path
                     device=self.adapter.get_device('14290783')
-                    device.ki.set_pin(data['pin'], data['state'])
+                    # todo if can't find device yet, see if app will retry
+                    if device is not None:
+                        device.ki.set_pin(data['pin'], data['state'])
                 self.send_response(200)
             else:
                 # HTTP 400: bad request
