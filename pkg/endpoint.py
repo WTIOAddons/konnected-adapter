@@ -100,7 +100,7 @@ def start_kserver(interface, adapter):
     port = 8001
     thread = Thread(ip, port, adapter)
 
-def provision_dev(interface, kdev)
+def provision_dev(interface, kdev):
     ip = get_ip_address(interface)
     port = 8001
     sensors = [{"pin":1},{"pin":2},{"pin":5},
@@ -108,6 +108,7 @@ def provision_dev(interface, kdev)
     actuators = [{"pin":8,"trigger":1}]
     dht_sensors=[] # [{"pin":9,"poll_interval":2}]
     ds18b20_sensors=[]
+    logging.info('kdev: %s', kdev)
     kdev.provision(ip, port, sensors, actuators, dht_sensors,
                    ds18b20_sensors)
 
