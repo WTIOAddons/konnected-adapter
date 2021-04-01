@@ -11,7 +11,7 @@ class KIEvent():
         self.value = value
 
     def state(self):
-        if self.value = '1':
+        if self.value == '1':
             return True
         else:
             return False
