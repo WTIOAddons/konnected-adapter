@@ -79,7 +79,7 @@ class KITempProperty(KonnectedProperty):
 class KIHumidProperty(KonnectedProperty):
     """Hour integer property type."""
     def __init__(self, device, ki):
-        DateTimeProperty.__init__(self, device,
+        KonnectedProperty.__init__(self, device,
                                   'humidity', {'title': 'Humidity',
                                                'label': 'Humidity',
                                                '@type': 'LevelProperty',
@@ -96,7 +96,7 @@ class KIHumidProperty(KonnectedProperty):
 class KIAlarmProperty(KonnectedProperty):
     """Hour integer property type."""
     def __init__(self, device, ki):
-        DateTimeProperty.__init__(self, device,
+        KonnectedProperty.__init__(self, device,
                                   'alarm', {'title': 'Alarm',
                                                'label': 'Alarm',
                                                'type': 'boolean',
