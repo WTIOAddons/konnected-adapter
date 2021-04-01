@@ -138,6 +138,6 @@ class KonnectedDevice(KIDevice):
 
     """ Check if a trigger occured and if so send event """
     def check_send_event(self, event):
-        event = Event(self, event.name(), event.state() )
-        self.event_notify(event)
+        wtevent = Event(self, event.name(), event.state() )
+        self.event_notify(wtevent)
         logging.info('New event ' + event.name())
