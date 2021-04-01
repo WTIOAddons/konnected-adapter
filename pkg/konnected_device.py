@@ -122,7 +122,7 @@ class KonnectedDevice(KIDevice):
         self.init()
         logging.debug('Konnected %s', self.as_dict())
 
-    def addZoneEvent(self, zone)
+    def addZoneEvent(self, zone):
         self.add_event('isopenzone'+zone, {
             'title': 'IsOpenZone'+zone, 'label':'IsOpenZone'+zone,
             'description': 'Is Zone '+zone+' opened',
