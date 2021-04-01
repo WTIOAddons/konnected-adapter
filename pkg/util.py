@@ -19,7 +19,7 @@ class KIEvent():
             0: "Closed",
             1: "Open"
         }
-        return "Zone"+swState.get(self.pin,"Closed")
+        return "Zone"+swState.get(self.value,"Closed")
 
 class KI():
     def __init__(self, endpoint):
