@@ -9,15 +9,15 @@ class KIEvent():
         self.value = value
 
     def state(self):
-        if self.value == '1':
+        if self.value == 1:
             return True
         else:
             return False
 
     def name(self):
         swState = {
-            '0': "Closed",
-            '1': "Open"
+            0: "Closed",
+            1: "Open"
         }
         return "Zone"+swState.get(self.value,"Closed")
 
