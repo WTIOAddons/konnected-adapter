@@ -2,7 +2,6 @@
 """
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
-import konnected
 import re
 import cgi
 import json
@@ -13,6 +12,7 @@ import struct
 import time
 from konnected_adapter import KonnectedAdapter
 from urllib import parse
+from pkg import konnected
 
 z1 = 1
 z2 = 2
