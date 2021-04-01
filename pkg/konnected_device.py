@@ -110,12 +110,12 @@ class KonnectedDevice(KIDevice):
         self.add_event('zone_open', {
             'title': 'ZoneOpen', 'label':'ZoneOpen',
             'description': 'Zone opened',
-            'type': 'integer'
+            'type': 'string'
         })
         self.add_event('zone_closed', {
             'title': 'ZoneClosed', 'label':'ZoneClosed',
             'description': 'Zone closed',
-            'type': 'integer'
+            'type': 'string'
         })
 
     def check(self):
