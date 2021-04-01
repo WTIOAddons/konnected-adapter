@@ -48,10 +48,10 @@ class KI():
         self.alarm = alarm
 
     def get_zone_status(self, zone):
-        return self.zones[zone]
+        return self.zones[zone-1]
 
     def set_zone_status(self, zone, status):
-        self.zones[zone] = status
+        self.zones[zone-1] = status
         
     def set_pin(self, pin, value):
         self.eventlist.append(KIEvent(pin,value))
