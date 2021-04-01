@@ -27,7 +27,7 @@ class KI():
         self.alarm = False
         logging.info('endpoint: %s', self.endpoint)
         self.eventlist = []
-        self.zones = []
+        self.zones = [None, None, None, None, None, None]
     
     def has_event(self):
         if len(self.eventlist) > 0:
