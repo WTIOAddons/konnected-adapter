@@ -8,22 +8,6 @@ from .util import KI
 from .konnected_property import KITempProperty, KIHumidProperty, \
                                 KIAlarmProperty
 
-class SoundAlarm(Action):
-
-    def __init__(self, thing, input_):
-        Action.__init__(self, uuid.uuid4().hex, thing, 'alarm', input_=input_)
-
-    def perform_action(self):
-        # can do a while here to loop for a bit and then turn it off
-        # or can just leave it on until user shuts it off        
-        logging.debug('Konnected.perform_action: sound the alarm %s',
-                      self.input['sound'])
-        if self.input['sound'] == True:
-            self.thing.set_property('alarm', True)
-        else:
-            self.thing.set_property('alarm', False)
-        # todo: actually sound the alarm or silence it
-        return
 
 class KIDevice(Device):
     """Konnected device type."""
@@ -94,7 +78,7 @@ class KonnectedDevice(KIDevice):
         self.addZoneEvent('4');
         self.addZoneEvent('5');
         self.addZoneEvent('6');
-        self.add_available_action('alarm',
+        self.add_action('alarm',
         {
             'title': 'Alarm',
             'description': 'Sound the siren or silence it',
@@ -115,12 +99,24 @@ class KonnectedDevice(KIDevice):
                     },
                 },
             },
-        },
-        SoundAlarm)
+        })
         self.name = 'Konnected'
         self.description = 'Konnected desc'
         self.init()
         logging.debug('Konnected %s', self.as_dict())
+
+    def perform_action(self, action):
+        # can do a while here to loop for a bit and then turn it off
+        # or can just leave it on until user shuts it off        
+        if action.name() == 'alarm':
+            logging.debug('Konnected.perform_action: sound the alarm %s',
+                          action.input['sound'])
+            if action.input['sound'] == True:
+                self.set_property('alarm', True)
+            else:
+                self.set_property('alarm', False)
+        # todo: actually sound the alarm or silence it
+        return
 
     def addZoneEvent(self, zone):
         self.add_event('isopenzone'+zone, {
