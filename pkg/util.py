@@ -15,15 +15,11 @@ class KIEvent():
             return False
 
     def name(self):
-        switcher = {
-            1: "1",
-            2: "2",
-            5: "3",
-            6: "4",
-            7: "5",
-            9: "6"
+        swState = {
+            0: "Closed",
+            1: "Open"
         }
-        return "IsOpenZone"+switcher.get(self.pin,"1")
+        return "Zone"+swState.get(self.pin,"Closed")
 
 class KI():
     def __init__(self, endpoint):
@@ -31,6 +27,7 @@ class KI():
         self.alarm = False
         logging.info('endpoint: %s', self.endpoint)
         self.eventlist = []
+        self.zones = []
     
     def has_event(self):
         if len(self.eventlist) > 0:
@@ -50,6 +47,12 @@ class KI():
     def set_alarm(self, alarm):
         self.alarm = alarm
 
+    def get_zone_status(self, zone):
+        return self.zones[zone]
+
+    def set_zone_status(self, zone, status):
+        self.zones[zone] = status
+        
     def set_pin(self, pin, value):
         self.eventlist.append(KIEvent(pin,value))
 

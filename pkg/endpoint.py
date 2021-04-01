@@ -36,16 +36,13 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             if ctype == 'application/json':
                 length = int(self.headers.get('content-length'))
                 rfile_str = self.rfile.read(length).decode('utf8')
-                print("rfile")
-                print(rfile_str)
                 data = json.loads(rfile_str)
-                print("\ndata")
-                print(data)
                 print("\npin")
                 print(data['pin'])
                 print("\nstate")
                 print(data['state'])
                 if self.adapter is not None:
+                    # todo get serial number from last 6 hex bytes of path
                     device=self.adapter.get_device('14290783')
                     device.ki.set_pin(data['pin'], data['state'])
                 self.send_response(200)

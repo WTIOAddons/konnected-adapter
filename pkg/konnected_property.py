@@ -114,9 +114,10 @@ class KIDoorProperty(KonnectedProperty):
                                   'zone_'+zone, {'title': 'Zone'+zone,
                                                'label': 'Zone'+zone,
                                                'type': 'boolean',
-                                               '@type': 'OpenProperty'
+                                               '@type': 'OpenProperty',
                                                'readOnly': True})
         self.ki = ki
+        self.zone = zone
 
     def get_new_value(self):
-        return self.ki.get_alarm()
+        return self.ki.get_zone_status(self.zone)
