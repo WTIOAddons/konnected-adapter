@@ -7,7 +7,8 @@ import time
 from gateway_addon import Device, Event, Action
 from .util import KI
 from .konnected_property import KITempProperty, KIHumidProperty, \
-                                KIAlarmProperty, KIDoorProperty
+                                KIAlarmProperty, KIDoorProperty, \
+                                KIArmedProperty
 
 
 class KIDevice(Device):
