@@ -6,8 +6,6 @@ import re
 import cgi
 import json
 import threading
-import fcntl
-import struct
 import time
 from urllib import parse
 from gateway_addon import Adapter
