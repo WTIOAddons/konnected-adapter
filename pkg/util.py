@@ -14,7 +14,7 @@ class KIEvent():
         else:
             return False
 
-    def zone(self):
+    def get_zone(self):
         return self.zone
 
     def name(self):
@@ -65,8 +65,9 @@ class KI():
             7: 5,
             9: 6,
         }
-        self.set_zone_status(switcher.get(pin,1), value)
-        self.eventlist.append(KIEvent(switcher.get(pin,1),value))
+        zone=switcher.get(pin,1)
+        self.set_zone_status(zone, value)
+        self.eventlist.append(KIEvent(zone,value))
 
     def next_event(self):
         if self.has_event():
