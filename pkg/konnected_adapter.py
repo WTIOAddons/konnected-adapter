@@ -1,11 +1,11 @@
 """Adapter for DateTime adapter for WebThings Gateway."""
 
 import logging
-import konnected
-import endpoint
 from gateway_addon import Adapter
 from .config import Config
 from .konnected_device import KonnectedDevice
+from pkg import konnected
+from pkg import endpoint
 
 
 class KonnectedAdapter(Adapter):

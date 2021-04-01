@@ -48,8 +48,9 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
                 print(data['pin'])
                 print("\nstate")
                 print(data['state'])
-                if self.adapter not None:
-                    
+                if self.adapter is not None:
+                    device=self.adapter.get_device('14290783')
+                    device.ki.set_pin(data['pin'], data['state'])
                 self.send_response(200)
             else:
                 # HTTP 400: bad request

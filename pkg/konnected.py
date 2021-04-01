@@ -12,10 +12,11 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-import ssdp
 import xml.etree.ElementTree as ET
 import urllib.request
 import json
+
+from pkg import ssdp
 
 NS = '{urn:schemas-upnp-org:device-1-0}'
 # XPATH TO FIND MVERSION

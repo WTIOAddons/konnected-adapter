@@ -134,12 +134,11 @@ class KonnectedDevice(KIDevice):
 
     def check_trigger(self):
         if self.ki.has_event():
-            self.check_send_event(self.ki.now(), self.ki.next_event())
+            self.check_send_event(self.ki.next_event())
 
 
     """ Check if a trigger occured and if so send event """
-    def check_send_event(self, event_name):
-        event = Event(self, event_name, event_name + ': ' +
-                      str(self.ki.now()))
+    def check_send_event(self, event):
+        event = Event(self, event.name(), event.state() )
         self.event_notify(event)
         logging.info('New event ' + event_name)
