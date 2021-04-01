@@ -5,7 +5,7 @@ from gateway_addon import Adapter
 from .config import Config
 from .konnected_device import KonnectedDevice
 from pkg import konnected
-
+from pkg import endpoint
 
 class KonnectedAdapter(Adapter):
     """Konnected Adapter to support Konnected.io alarm board."""
