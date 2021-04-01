@@ -11,14 +11,6 @@ from urllib import parse
 from gateway_addon import Adapter
 from pkg import konnected
 
-z1 = 1
-z2 = 2
-z3 = 5
-z4 = 6
-z5 = 7
-z6 = 9
-zout = 8
-
 
 class HTTPRequestHandler(BaseHTTPRequestHandler):
     def __init__(self, adapter):

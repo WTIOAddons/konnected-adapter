@@ -96,12 +96,12 @@ class KonnectedDevice(KIDevice):
         # or can just leave it on until user shuts it off        
         if action.name() == 'siren':
             logging.debug('Konnected.perform_action: sound the alarm %s')
-            if action.input['sound'] == True:
-                self.set_property('alarm', True)
-                self.ki.set_alarm(True)
-            else:
+            if self.ki.get_alarm():
                 self.set_property('alarm', False)
                 self.ki.set_alarm(False)
+            else:
+                self.set_property('alarm', True)
+                self.ki.set_alarm(True)
         action.finish()
         # todo: actually sound the alarm or silence it
         return
