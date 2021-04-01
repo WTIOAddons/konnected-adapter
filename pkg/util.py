@@ -1,7 +1,5 @@
 """Utility functions."""
 
-import datetime
-import pytz
 import logging
 import math
 
