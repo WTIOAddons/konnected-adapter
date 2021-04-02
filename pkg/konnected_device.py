@@ -36,6 +36,7 @@ class KIDevice(Device):
     def add_property(self, property):
         self.properties[property.name] = property
 
+    # todo - remove this debugging code completely
     def request_action(self, action_id, action_name, action_input):
         """
         Request that a new action be performed.
@@ -56,8 +57,7 @@ class KIDevice(Device):
             try:
                 logging.debug(action_input)
                 logging.debug(metadata['input'])
-                validate([2, 3, 4], {"maxItems": 2})
-                #validate(action_input, metadata['input'])
+                validate(action_input, metadata['input'])
             except ValidationError:
                 logging.debug('action invalid')
                 return
@@ -66,7 +66,6 @@ class KIDevice(Device):
         logging.debug('action going')
         self.perform_action(action)
         logging.debug('action performed')
-
 
     def check(self):
         return        
@@ -128,7 +127,7 @@ class KonnectedDevice(KIDevice):
                 'required': [
                     'zonename',
                     'sensortype',
-                    'pin'
+                    'zone'
                 ],
                 'properties': {
                     'zonename': {
