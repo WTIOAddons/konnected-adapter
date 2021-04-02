@@ -50,10 +50,16 @@ class KIDevice(Device):
 
         # Validate action input, if present.
         metadata = self.actions[action_name]
+        logging.debug('metadata found')
+        logging.debug(metadata)
         if 'input' in metadata:
             try:
-                validate(action_input, metadata['input'])
+                logging.debug(action_input)
+                logging.debug(metadata['input'])
+                validate([2, 3, 4], {"maxItems": 2})
+                #validate(action_input, metadata['input'])
             except ValidationError:
+                logging.debug('action invalid')
                 return
         logging.debug('action valid')
         action = Action(action_id, self, action_name, action_input)
