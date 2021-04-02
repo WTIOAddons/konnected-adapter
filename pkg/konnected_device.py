@@ -39,8 +39,10 @@ class KIDevice(Device):
         
     def request_action(self, action_id, action_name, action_input):
         logging.debug('request action ' + action_name)
-        logging.debug('input:'+action_input)
+        logging.debug('input:')
         super().request_action(action_id, action_name, action_input)
+        logging.debug('after request')
+        logging.debug(str(action_input))
 
     def poll(self):
         """ Poll device for changes."""
