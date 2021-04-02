@@ -90,11 +90,11 @@
                     "kind"
                 ],
                 "type": "object"
-            },
+            '},
             "title": "List of devices",
             "type": "array"
         }
-      '},
+      },
       "required": [
           "endpoint"
       ],
