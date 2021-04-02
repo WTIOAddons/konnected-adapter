@@ -76,7 +76,7 @@ class KonnectedDevice(KIDevice):
         self.add_property(KITempProperty(self, self.ki))
         self.add_property(KIHumidProperty(self, self.ki))
         self.add_property(KIAlarmProperty(self, self.ki))
-        for zone in range(1,7): # 1-6 zones
+        for zone in range(1,6): # 1-5 zones
             self.add_property(KIDoorProperty(self, self.ki, zone))
         self.add_zone_events();
         self.add_action('siren',
@@ -85,6 +85,38 @@ class KonnectedDevice(KIDevice):
             'description': 'Sound the siren',
             'type': 'string',
             '@type':'AlarmEvent'
+        })
+        self.add_action('provision', {
+            'title': 'Provision',
+            'description': 'Provision the zones',
+            'input': {
+                'type': 'object',
+                'required': [
+                    'zonename',
+                    'sensortype',
+                    'pin'
+                ],
+                'properties': {
+                    'zonename': {
+                        'type': 'string'
+                    },
+                    'sensortype': {
+                        'type': 'string',
+                        'enum': [
+                            'door',
+                            'motion',
+                            'dht',
+                            'ds18b20'
+                        ]
+                    },
+                    'zone': {
+                        'type': 'integer',
+                        'enum': [
+                            1,2,3,4,5,6
+                        ]
+                    }
+                },
+            },
         })
         self.name = 'Konnected-'+str(_id)
         self.description = 'Konnected device'
@@ -104,6 +136,12 @@ class KonnectedDevice(KIDevice):
             else:
                 self.set_property('alarm', True)
                 self.ki.set_alarm(True)
+        elif action.name == 'provision':
+            logging.debug('Performing provision')
+            if action.input['type'] == 'door' or action.input['type'] == 'motion':
+                self.add_property(KIDoorProperty(self, self.ki, 
+                                                 action.input['zone'])
+                
         action.finish()
         # todo: actually sound the alarm or silence it
         return
