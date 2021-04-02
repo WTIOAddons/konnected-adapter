@@ -37,15 +37,18 @@
         },
         "devices": {
             "items": {
-                "title": "A Konnected device",
+                "description": "A Konnected device",
                 "properties": {
                     "serial": {
-                        "type":"number"
+                        "description":"Serial number",
+                        "type":"integer"
                     },
                     "kind": {
+                        "description":"Kind of device"
                         "type":"string",
                         "enum": [
-                            "AlarmPanelV2"
+                            "AlarmPanelV2",
+                            "AlarmPanelV1"
                         ]
                     },
                     "zones": {
@@ -75,21 +78,22 @@
                                     ]
                                 }
                             },
-                            "title": "Zone",
-                            "type": "object"                            
+                            "description": "Zone",
+                            "type": "object"                        
                         },
-                        "title": "List of zones",
+                        "description": "List of zones",
                         "type": "array"
                     },
-                '},
+                },
                 "required":[
-                    "serial"
+                    "serial",
+                    "kind"
                 ],
                 "type": "object"
             },
             "title": "List of devices",
             "type": "array"
-        },
+        }
       },
       "required": [
           "endpoint"
