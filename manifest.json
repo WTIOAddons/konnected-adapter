@@ -38,10 +38,6 @@
         "devices": {
             "items": {
                 "type": "object",
-                "required": [
-                    "serial",
-                    "kind"
-                ],
                 "properties": {
                     "type": "object",
                     "serial": {
