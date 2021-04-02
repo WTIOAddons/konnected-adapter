@@ -50,41 +50,8 @@
                             "AlarmPanelV2",
                             "AlarmPanelV1"
                         ]
-                    },
-                    "zones": {
-                        "items": {
-                            "required": [
-                                "zonename",
-                                "sensortype",
-                                "zone"
-                            ],
-                            "properties": {
-                                "zonename": {
-                                    "type": "string"
-                                },
-                                "sensortype": {
-                                    "type": "string",
-                                    "enum": [
-                                        "door",
-                                        "motion",
-                                        "dht",
-                                        "ds18b20"
-                                    ]
-                                },
-                                "zone": {
-                                    "type": "string",
-                                    "enum": [
-                                        "1","2","3","4","5","6"
-                                    ]
-                                }
-                            },
-                            "description": "Zone",
-                            "type": "object"                        
-                        },
-                        "description": "List of zones",
-                        "type": "array"
-                    },
-                '},
+                    }
+                },
                 "required":[
                     "serial",
                     "kind"
