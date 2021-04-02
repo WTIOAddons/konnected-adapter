@@ -35,14 +35,35 @@ class KIDevice(Device):
         self.properties[property.name] = property
 
     def check(self):
-        return
-        
+        return        
+
     def request_action(self, action_id, action_name, action_input):
+        """
+        Request that a new action be performed.
+        action_id -- ID of the new action
+        action_name -- name of the action
+        action_input -- any inputs to the action
+        """
         logging.debug('request action ' + action_name)
         logging.debug('input:')
-        super().request_action(action_id, action_name, action_input)
-        logging.debug('after request')
-        logging.debug(str(action_input))
+        if action_name not in self.actions:
+            return
+            
+        logging.debug('action in actions')
+
+        # Validate action input, if present.
+        metadata = self.actions[action_name]
+        if 'input' in metadata:
+            try:
+                validate(action_input, metadata['input'])
+            except ValidationError:
+                return
+
+        logging.debug('action valid')
+        action = Action(action_id, self, action_name, action_input)
+        logging.debug('action created')
+        self.perform_action(action)
+        logging.debug('action performed')
 
     def poll(self):
         """ Poll device for changes."""
