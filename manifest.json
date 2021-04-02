@@ -35,6 +35,60 @@
           "description": "Interface on rpi that konnected will notify (wlan0)",
           "type": "string"
         }
+        'devices': {
+            'items': {
+                'type': 'object',
+                'required': [
+                    'serial',
+                    'kind'
+                ],
+                'properties': {
+                    'serial': {
+                        'type':'number'
+                    },
+                    'kind': {
+                        'type':'string',
+                        'enum': [
+                            'AlarmPanelV2'
+                        ]
+                    },
+                    'zones': {
+                        'items': {
+                            'type': 'object',
+                            'required': [
+                                'zonename',
+                                'sensortype',
+                                'zone'
+                            ],
+                            'properties': {
+                                'zonename': {
+                                    'type': 'string'
+                                },
+                                'sensortype': {
+                                    'type': 'string',
+                                    'enum': [
+                                        'door',
+                                        'motion',
+                                        'dht',
+                                        'ds18b20'
+                                    ]
+                                },
+                                'zone': {
+                                    'type': 'string',
+                                    'enum': [
+                                        '1','2','3','4','5','6'
+                                    ]
+                                }
+                            }
+                        }
+                        'title': 'List of zones'
+                        'type': 'array'
+                    },
+                },
+            },
+            'title': 'List of devices'
+            'type': 'array'
+        },
       },
       "required": [
         "endpoint"

@@ -111,6 +111,11 @@ class KonnectedDevice(KIDevice):
         self.add_property(KIAlarmProperty(self, self.ki))
         for zone in range(1,6): # 1-5 zones
             self.add_property(KIDoorProperty(self, self.ki, zone))
+        logging.debug('built zones')
+        if (_config.devices):
+            logging.debug('got devices')
+            logging.debug(_config.devices['zones'])
+            
         self.add_zone_events();
         self.add_action('siren',
         {
