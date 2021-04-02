@@ -114,7 +114,7 @@ class KonnectedDevice(KIDevice):
         logging.debug('built zones')
         if (_config.devices):
             logging.debug('got devices')
-            logging.debug(_config.devices['zones'])
+            logging.debug(_config.devices[0]['zones'])
             
         self.add_zone_events();
         self.add_action('siren',
