@@ -43,8 +43,8 @@
                         "description":"Serial number",
                         "type":"integer"
                     },
-                    '"kind": {
-                        "description":"Kind of device"
+                    "kind": {
+                        "description":"Kind of device",
                         "type":"string",
                         "enum": [
                             "AlarmPanelV2",
