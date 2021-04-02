@@ -85,6 +85,10 @@
                         "title": "List of zones",
                         "type": "array"
                     },
+                    "required":[
+                        "serial"
+                    ],
+                    "type": "object"
                 },
             },
             "title": "List of devices",
