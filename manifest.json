@@ -81,7 +81,7 @@
                         "title": "List of zones",
                         "type": "array"
                     },
-                },
+                '},
                 "required":[
                     "serial"
                 ],
