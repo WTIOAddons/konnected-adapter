@@ -65,6 +65,10 @@ class KIDevice(Device):
         self.perform_action(action)
         logging.debug('action performed')
 
+    def perform_action(self, action):
+        logging.debug('perform_action')
+        super().perform_action(action)
+
     def poll(self):
         """ Poll device for changes."""
         logging.debug('poll START for %s', self.name)
