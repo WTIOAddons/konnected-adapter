@@ -43,7 +43,7 @@
                         "description":"Serial number",
                         "type":"integer"
                     },
-                    "kind": {
+                    '"kind": {
                         "description":"Kind of device"
                         "type":"string",
                         "enum": [
