@@ -37,9 +37,8 @@
         },
         "devices": {
             "items": {
-                "type": "object",
+                "title": "A Konnected device",
                 "properties": {
-                    "type": "object",
                     "serial": {
                         "type":"number"
                     },
@@ -51,7 +50,6 @@
                     },
                     "zones": {
                         "items": {
-                            "type": "object",
                             "required": [
                                 "zonename",
                                 "sensortype",
@@ -76,25 +74,27 @@
                                         "1","2","3","4","5","6"
                                     ]
                                 }
-                            }
+                            },
+                            "title": "Zone",
+                            "type": "object"                            
                         },
                         "title": "List of zones",
                         "type": "array"
-                    '},
-                    "required":[
-                        "serial"
-                    ],
-                    "type": "object"
+                    },
                 },
+                "required":[
+                    "serial"
+                ],
+                "type": "object"
             },
             "title": "List of devices",
             "type": "array"
         },
-        "required": [
-            "endpoint"
-        ],
-        "type": "object"
-      }
+      },
+      "required": [
+          "endpoint"
+      ],
+      "type": "object"
     }
   },
   "short_name": "Konnected",
