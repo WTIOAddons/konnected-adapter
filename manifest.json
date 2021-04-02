@@ -34,7 +34,7 @@
         "endpoint": {
           "description": "Interface on rpi that konnected will notify (wlan0)",
           "type": "string"
-        }
+        },
         'devices': {
             'items': {
                 'type': 'object',
@@ -80,13 +80,13 @@
                                     ]
                                 }
                             }
-                        }
-                        'title': 'List of zones'
+                        },
+                        'title': 'List of zones',
                         'type': 'array'
                     },
                 },
             },
-            'title': 'List of devices'
+            'title': 'List of devices',
             'type': 'array'
         },
       },
