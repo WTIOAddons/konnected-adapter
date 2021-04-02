@@ -94,13 +94,13 @@
             "title": "List of devices",
             "type": "array"
         }
-      },
+      '},
       "required": [
           "endpoint"
       ],
       "type": "object"
     }
-  '},
+  },
   "short_name": "Konnected",
   "version": "0.0.1"
 }
