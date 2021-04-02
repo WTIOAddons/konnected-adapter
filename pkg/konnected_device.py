@@ -34,6 +34,32 @@ class KIDevice(Device):
     def add_property(self, property):
         self.properties[property.name] = property
 
+    def request_action(self, action_id, action_name, action_input):
+        """
+        Request that a new action be performed.
+        action_id -- ID of the new action
+        action_name -- name of the action
+        action_input -- any inputs to the action
+        """
+        logging.debug('request action '+action_name)
+        if action_name not in self.actions:
+            return
+        logging.debug('action in')
+
+        # Validate action input, if present.
+        metadata = self.actions[action_name]
+        if 'input' in metadata:
+            try:
+                validate(action_input, metadata['input'])
+            except ValidationError:
+                return
+        logging.debug('action valid')
+        action = Action(action_id, self, action_name, action_input)
+        logging.debug('action going')
+        self.perform_action(action)
+        logging.debug('action performed')
+
+
     def check(self):
         return        
 
