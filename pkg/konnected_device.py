@@ -162,12 +162,16 @@ class KonnectedDevice(KIDevice):
         logging.debug('perform action')
         logging.debug(action.name)  
         if action.name == 'siren':
-            logging.debug('Konnected.perform_action: sound the alarm %s')
+            logging.debug('Konnected.perform_action: sound the alarm')
             if self.ki.get_alarm():
+                logging.debug('set property')
                 self.set_property('alarm', False)
+                logging.debug('set alarm')
                 self.ki.set_alarm(False)
             else:
+                logging.debug('set property')
                 self.set_property('alarm', True)
+                logging.debug('set alarm')
                 self.ki.set_alarm(True)
         elif action.name == 'provision':
             logging.debug('Performing provision')
