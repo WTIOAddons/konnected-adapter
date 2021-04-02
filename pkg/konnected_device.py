@@ -3,6 +3,8 @@
 import logging
 import threading
 import time
+from jsonschema import validate
+from jsonschema.exceptions import ValidationError
 
 from gateway_addon import Device, Event, Action
 from .util import KI
