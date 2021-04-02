@@ -140,8 +140,7 @@ class KonnectedDevice(KIDevice):
             logging.debug('Performing provision')
             if action.input['type'] == 'door' or action.input['type'] == 'motion':
                 self.add_property(KIDoorProperty(self, self.ki, 
-                                                 action.input['zone'])
-                
+                                                 action.input['zone']))
         action.finish()
         # todo: actually sound the alarm or silence it
         return
