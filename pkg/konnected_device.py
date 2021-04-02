@@ -38,7 +38,8 @@ class KIDevice(Device):
         return
         
     def request_action(self, action_id, action_name, action_input):
-        logging.debug('request action' + action_name)
+        logging.debug('request action ' + action_name)
+        logging.debug('input:'+action_input)
         super().request_action(action_id, action_name, action_input)
 
     def poll(self):
