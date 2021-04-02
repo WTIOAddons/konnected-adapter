@@ -100,7 +100,7 @@
       ],
       "type": "object"
     }
-  },
+  '},
   "short_name": "Konnected",
   "version": "0.0.1"
 }
