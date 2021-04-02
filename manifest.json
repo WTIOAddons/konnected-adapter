@@ -48,7 +48,7 @@
                         "enum": [
                             "AlarmPanelV2"
                         ]
-                    },
+                    '},
                     "zones": {
                         "items": {
                             "type": "object",
