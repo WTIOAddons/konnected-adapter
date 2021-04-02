@@ -36,6 +36,10 @@ class KIDevice(Device):
 
     def check(self):
         return
+        
+    def request_action(self, action_id, action_name, action_input):
+        logging.debug('request action' + action_name)
+        super().request_action(action_id, action_name, action_input)
 
     def poll(self):
         """ Poll device for changes."""
@@ -93,7 +97,8 @@ class KonnectedDevice(KIDevice):
 
     def perform_action(self, action):
         # can do a while here to loop for a bit and then turn it off
-        # or can just leave it on until user shuts it off        
+        # or can just leave it on until user shuts it off      
+        logging.debug('perform action' + action.name())  
         if action.name() == 'siren':
             logging.debug('Konnected.perform_action: sound the alarm %s')
             if self.ki.get_alarm():
