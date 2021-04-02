@@ -123,11 +123,11 @@ class KIAlarmProperty(KonnectedProperty):
 
 class KIDoorProperty(KonnectedProperty):
     """Alarm integer property type."""
-    def __init__(self, device, ki, zone):
+    def __init__(self, device, ki, zone, title):
         KonnectedProperty.__init__(self, device,
                                   'zone_'+str(zone), 
-                                  {'title': 'Zone'+str(zone),
-                                   'label': 'Zone'+str(zone),
+                                  {'title': title,
+                                   'label': title,
                                    'type': 'boolean',
                                    '@type': 'OpenProperty',
                                    'readOnly': True})

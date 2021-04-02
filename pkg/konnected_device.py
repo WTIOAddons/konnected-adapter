@@ -106,16 +106,21 @@ class KonnectedDevice(KIDevice):
         # logging.info('sunset: %s sunrise: %s', self.sunset, self.sunrise)
 
         self.add_property(KIArmedProperty(self, self.ki))
-        self.add_property(KITempProperty(self, self.ki))
-        self.add_property(KIHumidProperty(self, self.ki))
+        # self.add_property(KITempProperty(self, self.ki))
+        # self.add_property(KIHumidProperty(self, self.ki))
         self.add_property(KIAlarmProperty(self, self.ki))
-        for zone in range(1,6): # 1-5 zones
-            self.add_property(KIDoorProperty(self, self.ki, zone))
-        logging.debug('built zones')
+#        for zone in range(1,6): # 1-5 zones
+#            self.add_property(KIDoorProperty(self, self.ki, zone))
+        logging.debug('build zones')
+        # todo use proper device matching serial number, or serial 0
         if (_config.devices):
             logging.debug('got devices')
             logging.debug(_config.devices[0]['zones'])
-            
+            for zone in _config.devices[0]['zones']:
+                self.add_property(KIDoorProperty(self, self.ki,
+                                                 int(zone['zone']),
+                                                 zone['zonename']))
+        logging.debug('added zones')
         self.add_zone_events();
         self.add_action('siren',
         {
