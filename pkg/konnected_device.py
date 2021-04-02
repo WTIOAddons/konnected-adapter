@@ -126,8 +126,9 @@ class KonnectedDevice(KIDevice):
     def perform_action(self, action):
         # can do a while here to loop for a bit and then turn it off
         # or can just leave it on until user shuts it off      
-        logging.debug('perform action' + action.name())  
-        if action.name() == 'siren':
+        logging.debug('perform action')
+        logging.debug(action.name)  
+        if action.name == 'siren':
             logging.debug('Konnected.perform_action: sound the alarm %s')
             if self.ki.get_alarm():
                 self.set_property('alarm', False)
