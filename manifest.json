@@ -48,7 +48,7 @@
                         "enum": [
                             "AlarmPanelV2"
                         ]
-                    '},
+                    },
                     "zones": {
                         "items": {
                             "type": "object",
@@ -80,7 +80,7 @@
                         },
                         "title": "List of zones",
                         "type": "array"
-                    },
+                    '},
                     "required":[
                         "serial"
                     ],
