@@ -95,8 +95,8 @@ class konnected_dev:
                             "actuators":actuators,
                             "dht_sensors":dht_sensors,
                             "ds18b20_sensors":ds18b20_sensors}
-        # print(payload)
-        # print(self.makeUrl("settings"))
+        logging.debug(payload)
+        logging.debug(self.makeUrl("settings"))
         payload=json.dumps(payload)
         headers = {'Content-Type': 'application/json'}
         try:
