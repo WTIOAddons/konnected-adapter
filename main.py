@@ -13,7 +13,7 @@ sys.path.append(path.join(path.dirname(path.abspath(__file__)), 'lib'))
 from pkg.konnected_adapter import KonnectedAdapter  # noqa
 
 
-_DEBUG = True
+_DEBUG = False
 _ADAPTER = None
 
 print = functools.partial(print, flush=True)
@@ -29,7 +29,7 @@ def cleanup(signum, frame):
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=10,
+    logging.basicConfig(level=30,
                         format="%(filename)s:%(lineno)s " +
                         "%(levelname)s %(message)s",
                         stream=sys.stdout)
