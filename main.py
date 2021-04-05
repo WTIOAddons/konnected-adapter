@@ -13,7 +13,7 @@ sys.path.append(path.join(path.dirname(path.abspath(__file__)), 'lib'))
 from pkg.konnected_adapter import KonnectedAdapter  # noqa
 
 
-_DEBUG = False
+_DEBUG = True
 _ADAPTER = None
 
 print = functools.partial(print, flush=True)

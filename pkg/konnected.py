@@ -88,8 +88,10 @@ class konnected_dev:
     def provision(self, ip, port, sensors, actuators, dht_sensors,
                   ds18b20_sensors):
         payload={"endpoint_type":"rest",
-                            "endpoint":"http://"+ip+":"+str(port)+
-                                       "/api/konnected",
+#                            "endpoint":"http://"+ip+":"+str(port)+
+#                                       "/api/konnected",
+                            "endpoint":"http://devgateway.lan:"+str(4443)+
+                                       "thing/14290783/api/konnected",
                             "token":"WebThings",
                             "sensors":sensors,
                             "actuators":actuators,
