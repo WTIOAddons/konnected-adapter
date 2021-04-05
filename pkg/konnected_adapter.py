@@ -47,7 +47,8 @@ class KonnectedAdapter(Adapter):
         for dev in devs:
             if self.get_device(dev.sn) is None:
                 self.handle_device_added(KonnectedDevice(self, dev.sn,
-                                                         self._config))
+                                                         self._config, 
+                                                         konapi))
                 konnected.provision_dev(self._config.endpoint, dev)
             else:
                 logging.debug('Device: %s was already created', dev.sn)

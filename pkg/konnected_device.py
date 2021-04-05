@@ -27,7 +27,8 @@ class KIDevice(Device):
             self.links.append({
                 rel: 'alternate',
                 mediaType: 'text/html',
-                href: `/extensions/konnected-adapter?thingId=${encodeURIComponent(this.id)}`, #noqa
+                href: "/extensions/konnected-adapter?thingId=${0}".\
+                    format(encodeURIComponent(_id)),
             });
 
     def init(self):
