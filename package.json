@@ -31,6 +31,7 @@
     "manifest.json",
     "pkg/__init__.py",
     "pkg/config.py",
+    "pkg/konnected_api.py",
     "pkg/konnected_adapter.py",
     "pkg/konnected_device.py",
     "pkg/konnected_property.py",
