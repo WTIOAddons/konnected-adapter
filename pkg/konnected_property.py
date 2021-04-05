@@ -67,7 +67,7 @@ class KITempProperty(KonnectedProperty):
                                              'label': 'Temperature',
                                              '@type': 'LevelProperty',
                                              'type': 'number',
-                                             'unit': 'degree celcius',
+                                             'unit': 'degree celsius',
                                              'readOnly': True,
                                              'minimum': -80, 'maximum': 80})
         self.ki = ki

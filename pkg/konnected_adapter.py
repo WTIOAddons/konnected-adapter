@@ -7,6 +7,9 @@ from .config import Config
 from .konnected_device import KonnectedDevice
 from pkg import konnected
 from pkg import endpoint
+from .konnected_api import Create as KonnectedAPI
+
+konapi = KonnectedAPI()
 
 class KonnectedAdapter(Adapter):
     """Konnected Adapter to support Konnected.io alarm board."""
@@ -21,6 +24,8 @@ class KonnectedAdapter(Adapter):
                          'konnected-adapter',
                          verbose=verbose)
         self._config = Config(self.package_name)
+        if konapi is not None:
+            self.api_handler = KonnectedAPI(self.manager_proxy, self)
         endpoint.start_kserver(self._config.endpoint, self)
         self.start_pairing(1)
 
