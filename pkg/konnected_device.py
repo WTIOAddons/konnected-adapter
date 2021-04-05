@@ -11,9 +11,7 @@ from .util import KI
 from .konnected_property import KITempProperty, KIHumidProperty, \
                                 KIAlarmProperty, KIDoorProperty, \
                                 KIArmedProperty
-from .konnected_api import Create as KonnectedAPI
-
-konapi = KonnectedAPI()
+from .konnected_api import KonnectedAPI
 
 class KIDevice(Device):
     """Konnected device type."""
@@ -23,13 +21,12 @@ class KIDevice(Device):
         _id -- ID of this device
         """
         Device.__init__(self, adapter, _id, konapi)
-        if konapi is not None:
-            self.links.append({
-                rel: 'alternate',
-                mediaType: 'text/html',
-                href: "/extensions/konnected-adapter?thingId=${0}".\
-                    format(encodeURIComponent(_id)),
-            });
+        self.links.append({
+            rel: 'alternate',
+            mediaType: 'text/html',
+            href: "/extensions/konnected-adapter?thingId=${0}".\
+                format(encodeURIComponent(_id)),
+        });
 
     def init(self):
         try:
