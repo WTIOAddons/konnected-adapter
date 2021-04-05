@@ -1,5 +1,5 @@
 import logging
-from gateway_adddon import APIHandler
+from gateway_addon import APIHandler
 
 class KonnectedAPI(APIHandler):
 	def __init__(self, manager_proxy, adapter, verbose=False):
