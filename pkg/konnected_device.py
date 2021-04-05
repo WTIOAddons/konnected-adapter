@@ -20,7 +20,7 @@ class KIDevice(Device):
         adapter -- the Adapter for this device
         _id -- ID of this device
         """
-        Device.__init__(self, adapter, _id, konapi)
+        Device.__init__(self, adapter, _id)
         self.links.append({
             rel: 'alternate',
             mediaType: 'text/html',
