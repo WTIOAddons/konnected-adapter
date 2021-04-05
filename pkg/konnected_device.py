@@ -22,9 +22,9 @@ class KIDevice(Device):
         """
         Device.__init__(self, adapter, _id)
         self.links.append({
-            rel: 'alternate',
-            mediaType: 'text/html',
-            href: "/extensions/konnected-adapter?thingId=${0}".\
+            "rel": "alternate",
+            "mediaType": "text/html",
+            "href": "/extensions/konnected-adapter?thingId=${0}".\
                 format(encodeURIComponent(_id)),
         });
 
