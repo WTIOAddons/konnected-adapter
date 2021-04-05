@@ -91,7 +91,7 @@ class konnected_dev:
 #                            "endpoint":"http://"+ip+":"+str(port)+
 #                                       "/api/konnected",
                             "endpoint":"http://devgateway.lan:"+str(4443)+
-                                       "/thing/14290783/api/konnected",
+                                       "/things/14290783/api/konnected",
                             "token":"WebThings",
                             "sensors":sensors,
                             "actuators":actuators,
