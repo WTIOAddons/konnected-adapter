@@ -25,7 +25,7 @@ class KIDevice(Device):
             "rel": "alternate",
             "mediaType": "text/html",
             "href": "/extensions/konnected-adapter?thingId=${0}".\
-                format(encodeURIComponent(_id)),
+                format(urllib.parse.quote(_id)),
         });
 
     def init(self):
