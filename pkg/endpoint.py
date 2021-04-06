@@ -29,10 +29,9 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
                 length = int(self.headers.get('content-length'))
                 rfile_str = self.rfile.read(length).decode('utf8')
                 data = json.loads(rfile_str)
-                print("\npin")
-                print(data['pin'])
-                print("\nstate")
-                print(data['state'])
+                print('trying')
+                print(self.path[len('/api/konnected/device/':])
+                print('done')
                 if self.adapter is not None:
                     # todo get serial number from last 6 hex bytes of path
                     device=self.adapter.get_device('14290783')
