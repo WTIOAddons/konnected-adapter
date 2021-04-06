@@ -15,11 +15,11 @@ class Config(Database):
         try:
             config = self.load_config()
             # config = json.loads(config.decode('utf-8'))
-            logging.info('config %s', config)
+            #logging.info('config %s', config)
             self.endpoint = config['endpoint']
             self.log_level = config['log_level']
             self.devices = None
             self.devices = config['devices']
-            logging.debug(self.devices)
+            #logging.debug(self.devices)
         except Exception as ex:
             logging.exception('Strange config:' + str(ex), config)

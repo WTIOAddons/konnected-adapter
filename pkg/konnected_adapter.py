@@ -24,7 +24,7 @@ class KonnectedAdapter(Adapter):
         self._config = Config(self.package_name)
         self.api_handler = KonnectedAPI(self.manager_proxy, self)
         endpoint.start_kserver(self._config.endpoint, self)
-        self.start_pairing(1)
+        #self.start_pairing(1)
 
     def start_pairing(self, timeout):
         """  Start pairing process. """
