@@ -22,7 +22,9 @@ class KonnectedAdapter(Adapter):
                          'konnected-adapter',
                          verbose=verbose)
         self._config = Config(self.package_name)
-        self.api_handler = KonnectedAPI(self.manager_proxy, self)
+        logging.debug('about to KonnectedApi')
+        self.api_handler = KonnectedAPI(self, verbose=verbose)
+        logging.debug('just KonnectedApi')
         endpoint.start_kserver(self._config.endpoint, self)
         #self.start_pairing(1)
 

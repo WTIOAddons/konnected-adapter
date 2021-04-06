@@ -2,11 +2,10 @@ import logging
 from gateway_addon import APIHandler
 
 class KonnectedAPI(APIHandler):
-	def __init__(self, manager_proxy, adapter, verbose=False):
+	def __init__(self, adapter, verbose=False):
 		logging.debug('konnected-api init')
 		self.adapter = adapter
-		APIHandler.__init__(self, 'konnected', verbose)
-		manager_proxy.add_api_handler(self)
+		APIHandler.__init__(self, 'konnected-api', verbose)
 
 	def handle_request(self, request):
 		logging.debug('konnected-api request')

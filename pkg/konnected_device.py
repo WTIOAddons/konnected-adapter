@@ -25,7 +25,7 @@ class KIDevice(Device):
         self.links.append({
             "rel": "alternate",
             "mediaType": "text/html",
-            "href": "/extensions/konnected-adapter?thingId=${0}".\
+            "href": "/extensions/konnected-adapter?thingId={0}".\
                 format(urllib.parse.quote(str(_id))),
         });
 
