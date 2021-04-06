@@ -138,9 +138,13 @@ class KonnectedDevice(KIDevice):
         self.add_action('siren',
         {
             'title': 'Siren',
-            'description': 'Sound the siren',
-            'type': 'string',
-            '@type':'AlarmEvent'
+            'description': 'Sound the siren'
+        })
+        self.add_action('toggle',
+        {
+            'title': 'Arm/Disarm',
+            'description': 'Arm/Disarm',
+            '@type':'ToggleAction'
         })
         self.name = 'Konnected-'+str(kdev.sn)
         self.description = 'Konnected device'
@@ -171,6 +175,18 @@ class KonnectedDevice(KIDevice):
                 self.set_property('alarm', True)
                 logging.debug('set alarm')
                 self.ki.set_alarm(True)
+        if action.name == 'toggle':
+            logging.debug('Konnected.perform_action: arm or disarm')
+            if self.ki.get_armed():
+                logging.debug('set property')
+                self.set_property('armed', False)
+                logging.debug('set armed')
+                self.ki.set_armed(False)
+            else:
+                logging.debug('set property')
+                self.set_property('armed', True)
+                logging.debug('set armed')
+                self.ki.set_armed(True)
         action.finish()
         # todo: actually sound the alarm or silence it
         return

@@ -105,7 +105,7 @@ class KIArmedProperty(KonnectedProperty):
         self.ki = ki
 
     def get_new_value(self):
-        return self.ki.get_alarm()
+        return self.ki.get_armed()
 
 class KIAlarmProperty(KonnectedProperty):
     """Alarm integer property type."""

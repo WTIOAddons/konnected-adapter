@@ -50,6 +50,12 @@ class KI():
     def set_alarm(self, alarm):
         self.alarm = alarm
 
+    def get_armed(self):
+        return self.armed
+
+    def set_armed(self, armed):
+        self.armed = armed
+
     def get_zone_status(self, zone):
         return self.zones[zone-1]
 
