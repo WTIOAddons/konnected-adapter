@@ -16,6 +16,7 @@ class KonnectedAdapter(Adapter):
         """
         verbose -- enable verbose logging
         """
+        logging.getLogger().setLevel(logging.DEBUG)
         self.name = self.__class__.__name__
         Adapter.__init__(self,
                          'konnected-adapter',
