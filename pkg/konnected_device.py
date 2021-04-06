@@ -21,6 +21,9 @@ class KIDevice(Device):
         _id -- ID of this device
         """
         Device.__init__(self, adapter, _id)
+        logging.debug('links:' + str(len(self.links)))
+        logging.debug(str(_id))
+        logging.debug(urllib.parse.quote(_id))
         self.links.append({
             "rel": "alternate",
             "mediaType": "text/html",

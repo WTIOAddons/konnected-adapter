@@ -43,6 +43,7 @@ class KonnectedAdapter(Adapter):
         self.kdevs = devs
         for dev in devs:
             if self.get_device(dev.sn) is None:
+                logging.debug('adding device %s', str(dev.sn))
                 self.handle_device_added(KonnectedDevice(self, dev.sn,
                                                          self._config))
                 konnected.provision_dev(self._config.endpoint, dev)
