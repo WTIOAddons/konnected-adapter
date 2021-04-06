@@ -123,7 +123,9 @@ def findDevices():
     klist = []
     for d in devices:
        klist.append(konnected_dev(d))
-    # print(klist)
+    logging.debug('findDevices')
+    logging.debug(str(len(klist)))
+    logging.debug(klist)
     return klist
 
 def get_ip_address(ifname):
