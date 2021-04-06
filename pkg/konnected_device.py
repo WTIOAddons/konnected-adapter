@@ -159,6 +159,7 @@ class KonnectedDevice(KIDevice):
         kdev.provision(ip, port, sensors, actuators, dht, ds18b20)
 
     def sound_alarm(self, on):
+        logging.debug("sound_alarm")
         payload = {"pin":8,
                    "state":1,
                    "momentary":500}
@@ -180,6 +181,7 @@ class KonnectedDevice(KIDevice):
         except timeout: 
             print("==> Timeout")
             pass
+        logging.debug("Finished setting alarm")
         # response.status should be 200 here todo
 
     def perform_action(self, action):
