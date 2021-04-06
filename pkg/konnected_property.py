@@ -122,7 +122,7 @@ class KIAlarmProperty(KonnectedProperty):
         return self.ki.get_alarm()
 
 class KIDoorProperty(KonnectedProperty):
-    """Alarm integer property type."""
+    """Door binary property type."""
     def __init__(self, device, ki, zone, title):
         KonnectedProperty.__init__(self, device,
                                   'zone_'+str(zone), 
@@ -130,6 +130,22 @@ class KIDoorProperty(KonnectedProperty):
                                    'label': title,
                                    'type': 'boolean',
                                    '@type': 'OpenProperty',
+                                   'readOnly': True})
+        self.ki = ki
+        self.zone = zone
+
+    def get_new_value(self):
+        return self.ki.get_zone_status(self.zone)
+
+class KIMotionProperty(KonnectedProperty):
+    """Motion integer property type."""
+    def __init__(self, device, ki, zone, title):
+        KonnectedProperty.__init__(self, device,
+                                  'zone_'+str(zone), 
+                                  {'title': title,
+                                   'label': title,
+                                   'type': 'boolean',
+                                   '@type': 'MotionProperty',
                                    'readOnly': True})
         self.ki = ki
         self.zone = zone

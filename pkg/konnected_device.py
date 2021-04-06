@@ -11,8 +11,9 @@ from gateway_addon import Device, Event, Action
 from .util import KI
 from .konnected_property import KITempProperty, KIHumidProperty, \
                                 KIAlarmProperty, KIDoorProperty, \
-                                KIArmedProperty
+                                KIArmedProperty, KIMotionProperty
 from .konnected_api import KonnectedAPI
+from .konnected import konnected_dev, get_ip_address
 
 class KIDevice(Device):
     """Konnected device type."""
@@ -22,12 +23,12 @@ class KIDevice(Device):
         _id -- ID of this device
         """
         Device.__init__(self, adapter, _id)
-        self.links.append({
-            "rel": "alternate",
-            "mediaType": "text/html",
-            "href": "/extensions/konnected-adapter?thingId={0}".\
-                format(urllib.parse.quote(str(_id))),
-        });
+        # self.links.append({
+        #    "rel": "alternate",
+        #    "mediaType": "text/html",
+        #    "href": "/extensions/konnected-adapter?thingId={0}".\
+        #        format(urllib.parse.quote(str(_id))),
+        # });
 
     def init(self):
         try:
@@ -42,37 +43,6 @@ class KIDevice(Device):
 
     def add_property(self, property):
         self.properties[property.name] = property
-
-    # todo - remove this debugging code completely
-    def request_action(self, action_id, action_name, action_input):
-        """
-        Request that a new action be performed.
-        action_id -- ID of the new action
-        action_name -- name of the action
-        action_input -- any inputs to the action
-        """
-        logging.debug('request action '+action_name)
-        if action_name not in self.actions:
-            return
-        logging.debug('action in')
-
-        # Validate action input, if present.
-        metadata = self.actions[action_name]
-        logging.debug('metadata found')
-        logging.debug(metadata)
-        if 'input' in metadata:
-            try:
-                logging.debug(action_input)
-                logging.debug(metadata['input'])
-                validate(action_input, metadata['input'])
-            except ValidationError:
-                logging.debug('action invalid')
-                return
-        logging.debug('action valid')
-        action = Action(action_id, self, action_name, action_input)
-        logging.debug('action going')
-        self.perform_action(action)
-        logging.debug('action performed')
 
     def check(self):
         return        
@@ -99,33 +69,74 @@ class KIDevice(Device):
 
 class KonnectedDevice(KIDevice):
     """Konnected device type."""
-    def __init__(self, adapter, _id, _config):
+    def __init__(self, adapter, kdev, _config):
         """
         adapter -- the Adapter for this device
         _id -- ID of this device
         """
-        KIDevice.__init__(self, adapter, _id)
+        KIDevice.__init__(self, adapter, kdev.sn)
         self._context = 'https://webthings.io/schemas'
         self._type = ['OnOffSwitch','Alarm' 
                       'DoorSensor']
         self.ki = KI(_config.endpoint)
-
-        # logging.info('sunset: %s sunrise: %s', self.sunset, self.sunrise)
 
         self.add_property(KIArmedProperty(self, self.ki))
         # todo add these properties if selected for zone
         # self.add_property(KITempProperty(self, self.ki))
         # self.add_property(KIHumidProperty(self, self.ki))
         self.add_property(KIAlarmProperty(self, self.ki))
-        logging.debug('build zones')
+        sensors=[]
+        dht=[]
+        ds18b20=[]
+        pinswitch ={
+            '1':{'pin':1},
+            '2':{'pin':2},
+            '3':{'pin':5},
+            '4':{'pin':6},
+            '5':{'pin':7},
+            '6':{'pin':9}
+        }
+        dhtswitch ={
+            '1':{'pin':1,"poll_interval":2},
+            '2':{'pin':2,"poll_interval":2},
+            '3':{'pin':5,"poll_interval":2},
+            '4':{'pin':6,"poll_interval":2},
+            '5':{'pin':7,"poll_interval":2},
+            '6':{'pin':9,"poll_interval":2}
+        }
         # todo use proper device matching serial number, or serial 0
         if (_config.devices):
             logging.debug('got devices')
             logging.debug(_config.devices[0]['zones'])
             for zone in _config.devices[0]['zones']:
-                self.add_property(KIDoorProperty(self, self.ki,
-                                                 int(zone['zone']),
-                                                 zone['zonename']))
+                if (zone['sensortype'] == 'door'):
+                    sensors.append(pinswitch.get(zone['zone'],None))
+                    self.add_property(KIDoorProperty(self, self.ki,
+                                                     int(zone['zone']),
+                                                     zone['zonename']))
+                elif (zone['sensortype'] == 'window'):
+                    sensors.append(pinswitch.get(zone['zone'],None))
+                    self.add_property(KIDoorProperty(self, self.ki,
+                                                     int(zone['zone']),
+                                                     zone['zonename']))
+                elif (zone['sensortype'] == 'motion')
+                    sensors.append(pinswitch.get(zone['zone'],None))
+                    self.add_property(KIMotionProperty(self, self.ki,
+                                                       int(zone['zone']),
+                                                       zone['zonename']))
+                elif (zone['sensortype'] == 'dht')
+                    dht.append(dhtswitch.get(zone['zone'],None))
+                    self.add_property(KITempProperty(self, self.ki,
+                                                     int(zone['zone']),
+                                                     zone['zonename']))
+                    self.add_property(KIHumidProperty(self, self.ki,
+                                                      int(zone['zone']),
+                                                      zone['zonename']))
+                elif (zone['sensortype'] == 'ds18b20')
+                    ds18b20.append(dhtswitch.get(zone['zone'],None))
+                    self.add_property(KITempProperty(self, self.ki,
+                                                     int(zone['zone']),
+                                                     zone['zonename']))
         logging.debug('added zones')
         self.add_zone_events();
         self.add_action('siren',
@@ -135,10 +146,17 @@ class KonnectedDevice(KIDevice):
             'type': 'string',
             '@type':'AlarmEvent'
         })
-        self.name = 'Konnected-'+str(_id)
+        self.name = 'Konnected-'+str(kdev.sn)
         self.description = 'Konnected device'
         self.init()
+        self.provision_dev(_config.endpoint, kdev, sensors, dht, ds18b20)
         logging.debug('Konnected %s', self.as_dict())
+
+        def provision_dev(self, interface, kdev, sensors, dht, ds18b20):
+            ip = get_ip_address(interface)
+            port = 8001
+            actuators = [{"pin":8,"trigger":1}]
+            kdev.provision(ip, port, sensors, actuators, dht, ds18b20)
 
     def perform_action(self, action):
         # can do a while here to loop for a bit and then turn it off

@@ -6,6 +6,7 @@ class KonnectedAPI(APIHandler):
 		logging.debug('konnected-api init')
 		self.adapter = adapter
 		APIHandler.__init__(self, 'konnected-api', verbose)
+		logging.debug('konnected-api finished')
 
 	def handle_request(self, request):
 		logging.debug('konnected-api request')

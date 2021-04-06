@@ -27,7 +27,7 @@ class KonnectedAdapter(Adapter):
         self.api_handler = KonnectedAPI(self, verbose=verbose)
         logging.debug('just KonnectedApi')
         endpoint.start_kserver(self._config.endpoint, self)
-        #self.start_pairing(1)
+        self.start_pairing(1)
 
     def start_pairing(self, timeout):
         """  Start pairing process. """
