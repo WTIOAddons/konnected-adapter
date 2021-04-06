@@ -16,7 +16,7 @@ class KonnectedAdapter(Adapter):
         """
         verbose -- enable verbose logging
         """
-        logging.getLogger().setLevel(logging.DEBUG)
+#        logging.getLogger().setLevel(logging.DEBUG)
         self.name = self.__class__.__name__
         Adapter.__init__(self,
                          'konnected-adapter',
@@ -33,7 +33,7 @@ class KonnectedAdapter(Adapter):
         """  Start pairing process. """
         logging.debug('START Pairing')
 
-        log_level = 30
+        log_level = 10
         if self._config.log_level == 'INFO':
             logging.getLogger().setLevel(logging.INFO)
         elif self._config.log_level == 'DEBUG':
