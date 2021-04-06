@@ -135,16 +135,16 @@ class KonnectedDevice(KIDevice):
                                                      int(zone['zone']),
                                                      zone['zonename']))
         self.add_zone_events();
-        self.add_action('siren',
-        {
-            'title': 'Siren',
-            'description': 'Sound the siren'
-        })
         self.add_action('toggle',
         {
             'title': 'Arm/Disarm',
             'description': 'Arm/Disarm',
             '@type':'ToggleAction'
+        })
+        self.add_action('siren',
+        {
+            'title': 'Siren',
+            'description': 'Sound the siren'
         })
         self.name = 'Konnected-'+str(kdev.sn)
         self.description = 'Konnected device'

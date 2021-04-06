@@ -101,11 +101,15 @@ class KIArmedProperty(KonnectedProperty):
                                                'label': 'Armed',
                                                'type': 'boolean',
                                                '@type': 'OnOffProperty',
-                                               'readOnly': True})
+                                               'readOnly': False})
         self.ki = ki
 
     def get_new_value(self):
         return self.ki.get_armed()
+
+    def set_value(self, value):
+        self.ki.set_armed(value)
+
 
 class KIAlarmProperty(KonnectedProperty):
     """Alarm integer property type."""
