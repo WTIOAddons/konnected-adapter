@@ -153,9 +153,11 @@ class KonnectedDevice(KIDevice):
         logging.debug('Konnected %s', self.as_dict())
 
         def provision_dev(self, interface, kdev, sensors, dht, ds18b20):
+            logging.debug('about to get ip')
             ip = get_ip_address(interface)
             port = 8001
             actuators = [{"pin":8,"trigger":1}]
+            logging.debug('about to provision')
             kdev.provision(ip, port, sensors, actuators, dht, ds18b20)
 
     def perform_action(self, action):
