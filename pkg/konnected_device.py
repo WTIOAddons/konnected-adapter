@@ -167,24 +167,24 @@ class KonnectedDevice(KIDevice):
             logging.debug('Konnected.perform_action: sound the alarm')
             if self.ki.get_alarm():
                 logging.debug('set property')
-                self.set_property('alarm', False)
+                #self.set_property('alarm', False)
                 logging.debug('set alarm')
                 self.ki.set_alarm(False)
             else:
                 logging.debug('set property')
-                self.set_property('alarm', True)
+                #self.set_property('alarm', True)
                 logging.debug('set alarm')
                 self.ki.set_alarm(True)
         if action.name == 'toggle':
             logging.debug('Konnected.perform_action: arm or disarm')
             if self.ki.get_armed():
                 logging.debug('set property')
-                self.set_property('armed', False)
+                #self.set_property('armed', False)
                 logging.debug('set armed')
                 self.ki.set_armed(False)
             else:
                 logging.debug('set property')
-                self.set_property('armed', True)
+                #self.set_property('armed', True)
                 logging.debug('set armed')
                 self.ki.set_armed(True)
         action.finish()
