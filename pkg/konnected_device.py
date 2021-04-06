@@ -163,16 +163,20 @@ class KonnectedDevice(KIDevice):
         payload = {"pin":8,
                    "state":1,
                    "momentary":500}
-        if not on:
+        if on is False:
             payload = {"pin":8,
                        "state":0}
         payload = json.dumps(payload)
+        logging.debug(payload)
+        logging.debug(self.kurl)
+        logging.debug("about to go in")
         headers = {'Content-Type': 'application/json'}
         try:
             req = urllib.request.Request(self.kurl,
                                          data=payload.encode('ascii'),
                                          headers=headers,
                                          method='PUT')
+            logging.debug("built urllib")
             with urllib.request.urlopen(req, timeout=30) as response:
                 the_page = response.read()
         except ConnectionResetError:
