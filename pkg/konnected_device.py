@@ -3,6 +3,7 @@
 import logging
 import threading
 import time
+import urllib.parse
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
