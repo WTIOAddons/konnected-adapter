@@ -81,9 +81,6 @@ class KonnectedDevice(KIDevice):
         self.ki = KI(_config.endpoint)
 
         self.add_property(KIArmedProperty(self, self.ki))
-        # todo add these properties if selected for zone
-        # self.add_property(KITempProperty(self, self.ki))
-        # self.add_property(KIHumidProperty(self, self.ki))
         self.add_property(KIAlarmProperty(self, self.ki))
         sensors=[]
         dht=[]
@@ -137,7 +134,6 @@ class KonnectedDevice(KIDevice):
                     self.add_property(KITempProperty(self, self.ki,
                                                      int(zone['zone']),
                                                      zone['zonename']))
-        logging.debug('added zones')
         self.add_zone_events();
         self.add_action('siren',
         {
@@ -153,11 +149,9 @@ class KonnectedDevice(KIDevice):
         logging.debug('Konnected %s', self.as_dict())
 
     def provision_dev(self, interface, kdev, sensors, dht, ds18b20):
-        logging.debug('about to get ip')
         ip = get_ip_address(interface)
         port = 8001
         actuators = [{"pin":8,"trigger":1}]
-        logging.debug('about to provision')
         kdev.provision(ip, port, sensors, actuators, dht, ds18b20)
 
     def perform_action(self, action):

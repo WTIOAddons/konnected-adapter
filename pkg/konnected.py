@@ -89,15 +89,12 @@ class konnected_dev:
                   ds18b20_sensors):
         logging.debug('provisioning')
         payload={"endpoint_type":"rest",
-                            "endpoint":"http://"+ip+":"+str(port)+
-                                       "/api/konnected",
-#                            "endpoint":"http://devgateway.lan:"+str(4443)+
-#                                       "/things/14290783/api/konnected",
-                            "token":"WebThings",
-                            "sensors":sensors,
-                            "actuators":actuators,
-                            "dht_sensors":dht_sensors,
-                            "ds18b20_sensors":ds18b20_sensors}
+                 "endpoint":"http://"+ip+":"+str(port)+"/api/konnected",
+                 "token":"WebThings",
+                 "sensors":sensors,
+                 "actuators":actuators,
+                 "dht_sensors":dht_sensors,
+                 "ds18b20_sensors":ds18b20_sensors}
         logging.debug(payload)
         logging.debug(self.makeUrl("settings"))
         payload=json.dumps(payload)
@@ -109,8 +106,6 @@ class konnected_dev:
                                          method='PUT')
             with urllib.request.urlopen(req, timeout=30) as response:
                 the_page = response.read()
-                # print("status:")
-                # print(response.status)
         except ConnectionResetError:
             print("==> ConnectionResetError")
             pass
