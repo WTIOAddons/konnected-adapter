@@ -28,6 +28,7 @@ class KI():
     def __init__(self, endpoint):
         self.endpoint = endpoint
         self.alarm = False
+        self.armed = False
         logging.info('endpoint: %s', self.endpoint)
         self.eventlist = []
         self.zones = [None, None, None, None, None, None]
