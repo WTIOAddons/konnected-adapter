@@ -119,12 +119,12 @@ class KonnectedDevice(KIDevice):
                     self.add_property(KIDoorProperty(self, self.ki,
                                                      int(zone['zone']),
                                                      zone['zonename']))
-                elif (zone['sensortype'] == 'motion')
+                elif (zone['sensortype'] == 'motion'):
                     sensors.append(pinswitch.get(zone['zone'],None))
                     self.add_property(KIMotionProperty(self, self.ki,
                                                        int(zone['zone']),
                                                        zone['zonename']))
-                elif (zone['sensortype'] == 'dht')
+                elif (zone['sensortype'] == 'dht'):
                     dht.append(dhtswitch.get(zone['zone'],None))
                     self.add_property(KITempProperty(self, self.ki,
                                                      int(zone['zone']),
@@ -132,7 +132,7 @@ class KonnectedDevice(KIDevice):
                     self.add_property(KIHumidProperty(self, self.ki,
                                                       int(zone['zone']),
                                                       zone['zonename']))
-                elif (zone['sensortype'] == 'ds18b20')
+                elif (zone['sensortype'] == 'ds18b20'):
                     ds18b20.append(dhtswitch.get(zone['zone'],None))
                     self.add_property(KITempProperty(self, self.ki,
                                                      int(zone['zone']),
