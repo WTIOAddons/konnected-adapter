@@ -79,7 +79,7 @@ class KonnectedDevice(KIDevice):
         self._type = ['OnOffSwitch','Alarm' 
                       'DoorSensor']
         self.ki = KI(_config.endpoint)
-
+        self.kurl = kdev.makeUrl("device")
         self.add_property(KIArmedProperty(self, self.ki))
         self.add_property(KIAlarmProperty(self, self.ki))
         sensors=[]
@@ -158,6 +158,30 @@ class KonnectedDevice(KIDevice):
         actuators = [{"pin":8,"trigger":1}]
         kdev.provision(ip, port, sensors, actuators, dht, ds18b20)
 
+    def sound_alarm(self, on):
+        payload = {"pin":8,
+                   "state":1,
+                   "momentary":500}
+        if not on:
+            payload = {"pin":8,
+                       "state":0}
+        payload = json.dumps(payload)
+        headers = {'Content-Type': 'application/json'}
+        try:
+            req = urllib.request.Request(self.kurl,
+                                         data=payload.encode('ascii'),
+                                         headers=headers,
+                                         method='PUT')
+            with urllib.request.urlopen(req, timeout=30) as response:
+                the_page = response.read()
+        except ConnectionResetError:
+            print("==> ConnectionResetError")
+            pass
+        except timeout: 
+            print("==> Timeout")
+            pass
+        # response.status should be 200 here todo
+
     def perform_action(self, action):
         # can do a while here to loop for a bit and then turn it off
         # or can just leave it on until user shuts it off      
@@ -170,11 +194,13 @@ class KonnectedDevice(KIDevice):
                 #self.set_property('alarm', False)
                 logging.debug('set alarm')
                 self.ki.set_alarm(False)
+                self.sound_alarm(False)
             else:
                 logging.debug('set property')
                 #self.set_property('alarm', True)
                 logging.debug('set alarm')
                 self.ki.set_alarm(True)
+                self.sound_alarm(True)
         if action.name == 'toggle':
             logging.debug('Konnected.perform_action: arm or disarm')
             if self.ki.get_armed():
