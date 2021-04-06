@@ -168,8 +168,6 @@ class KonnectedDevice(KIDevice):
             payload = {"pin":8,
                        "state":0}
         payload = json.dumps(payload)
-        logging.debug(payload)
-        logging.debug(self.kurl)
         logging.debug("about to go in")
         headers = {'Content-Type': 'application/json'}
         try:
@@ -180,6 +178,7 @@ class KonnectedDevice(KIDevice):
             logging.debug("built urllib")
             with urllib.request.urlopen(req, timeout=30) as response:
                 the_page = response.read()
+            logging.debug(the_page)
         except ConnectionResetError:
             print("==> ConnectionResetError")
             pass
