@@ -76,7 +76,7 @@ class KITempProperty(KonnectedProperty):
         self.zone = zone
 
     def get_new_value(self):
-        return self.ki.get_zone_status(zone)
+        return self.ki.get_zone_status(self.zone)
 
 
 class KIHumidProperty(KonnectedProperty):
@@ -97,7 +97,7 @@ class KIHumidProperty(KonnectedProperty):
         self.zone = zone
 
     def get_new_value(self):
-        return self.ki.get_zone_humi(zone)
+        return self.ki.get_zone_humi(self.zone)
 
 
 class KIArmedProperty(KonnectedProperty):
