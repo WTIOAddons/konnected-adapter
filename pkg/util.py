@@ -1,7 +1,7 @@
 """Utility functions."""
 
 import logging
-import math
+
 
 class KIEvent():
     def __init__(self, zone, value):
@@ -22,7 +22,8 @@ class KIEvent():
             0: "closed",
             1: "open"
         }
-        return "zone_"+swState.get(self.value,"unknown")
+        return "zone_"+swState.get(self.value, "unknown")
+
 
 class KI():
     def __init__(self, endpoint):
@@ -32,7 +33,7 @@ class KI():
         logging.info('endpoint: %s', self.endpoint)
         self.eventlist = []
         self.zones = [None, None, None, None, None, None]
-    
+
     def has_event(self):
         if len(self.eventlist) > 0:
             return True
@@ -62,7 +63,7 @@ class KI():
 
     def set_zone_status(self, zone, status):
         self.zones[zone-1] = status
-        
+
     def set_pin(self, pin, value):
         switcher = {
             1: 1,
@@ -72,9 +73,9 @@ class KI():
             7: 5,
             9: 6,
         }
-        zone=switcher.get(pin,1)
+        zone = switcher.get(pin, 1)
         self.set_zone_status(zone, value)
-        self.eventlist.append(KIEvent(zone,value))
+        self.eventlist.append(KIEvent(zone, value))
 
     def next_event(self):
         if self.has_event():

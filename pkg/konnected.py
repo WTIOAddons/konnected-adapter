@@ -64,8 +64,9 @@ xPathSN = ''.join([
     NS, "serialNumber"
     ])
 
+
 class konnected_dev:
-    def __init__(self,device):
+    def __init__(self, device):
         response = urllib.request.urlopen(device.location).read()
         tree = ET.fromstring(response)
         for udn in tree.findall(xPathUDN):
@@ -80,24 +81,24 @@ class konnected_dev:
             majt = maj.text
         for mn in tree.findall(xPathmin):
             mint = mn.text
-        self.version = majt+"."+mint;
+        self.version = majt+"."+mint
 
     def makeUrl(self, rest):
         return self.URLBase+"/"+rest
-    
+
     def provision(self, ip, port, sensors, actuators, dht_sensors,
                   ds18b20_sensors):
         logging.debug('provisioning')
-        payload={"endpoint_type":"rest",
-                 "endpoint":"http://"+ip+":"+str(port)+"/api/konnected",
-                 "token":"WebThings",
-                 "sensors":sensors,
-                 "actuators":actuators,
-                 "dht_sensors":dht_sensors,
-                 "ds18b20_sensors":ds18b20_sensors}
+        payload = {"endpoint_type":"rest",
+                   "endpoint": "http://"+ip+":"+str(port)+"/api/konnected",
+                   "token": "WebThings",
+                   "sensors": sensors,
+                   "actuators": actuators,
+                   "dht_sensors": dht_sensors,
+                   "ds18b20_sensors": ds18b20_sensors}
         logging.debug(payload)
         logging.debug(self.makeUrl("settings"))
-        payload=json.dumps(payload)
+        payload = json.dumps(payload)
         headers = {'Content-Type': 'application/json'}
         try:
             req = urllib.request.Request(self.makeUrl("settings"),
@@ -106,23 +107,26 @@ class konnected_dev:
                                          method='PUT')
             with urllib.request.urlopen(req, timeout=30) as response:
                 the_page = response.read()
+            logging.debug(the_page)
         except ConnectionResetError:
             print("==> ConnectionResetError")
             pass
-        except timeout: 
+        except socket.timeout:
             print("==> Timeout")
             pass
         # response.status should be 200 here todo
+
 
 def findDevices():
     devices = ssdp.discover("urn:schemas-konnected-io:device:Security:1")
     klist = []
     for d in devices:
-       klist.append(konnected_dev(d))
+        klist.append(konnected_dev(d))
     logging.debug('findDevices')
     logging.debug(str(len(klist)))
     logging.debug(klist)
     return klist
+
 
 def get_ip_address(ifname):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -131,5 +135,3 @@ def get_ip_address(ifname):
         0x8915,  # SIOCGIFADDR
         struct.pack('256s', ifname[:15].encode('utf8'))
     )[20:24])
-
-

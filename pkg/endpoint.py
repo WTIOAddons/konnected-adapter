@@ -7,8 +7,6 @@ import cgi
 import json
 import threading
 import time
-from urllib import parse
-from gateway_addon import Adapter
 from pkg import konnected
 
 
@@ -29,9 +27,9 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
                 length = int(self.headers.get('content-length'))
                 rfile_str = self.rfile.read(length).decode('utf8')
                 data = json.loads(rfile_str)
-                serial=int(self.path[len('/api/konnected/device/')+6:], 16)
+                serial = int(self.path[len('/api/konnected/device/') + 6:], 16)
                 if self.adapter is not None:
-                    device=self.adapter.get_device(str(serial))
+                    device = self.adapter.get_device(str(serial))
                     # todo if can't find device yet, see if app will retry
                     if device is not None:
                         device.ki.set_pin(data['pin'], data['state'])
@@ -58,6 +56,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
 
         self.end_headers()
 
+
 class Thread(threading.Thread):
     def __init__(self, ip, port, adapter):
         threading.Thread.__init__(self)
@@ -75,13 +74,16 @@ def start_kserver(interface, adapter):
     ip = konnected.get_ip_address(interface)
     port = 8001
     thread = Thread(ip, port, adapter)
+    return thread
+
 
 def main():
     kdevs = konnected.findDevices()
     start_kserver('wlan0', None)
     for kdev in kdevs:
         konnected.provision_dev('wlan0', kdev)
-    time.sleep(100000) # todo: set timeout to 1 day, refresh kdevs
+    time.sleep(100000)  # todo: set timeout to 1 day, refresh kdevs
+
 
 if __name__ == '__main__':
     main()

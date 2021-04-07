@@ -5,16 +5,14 @@ import threading
 import time
 import urllib
 import json
-from jsonschema import validate
-from jsonschema.exceptions import ValidationError
-
-from gateway_addon import Device, Event, Action
+from socket import timeout
+from gateway_addon import Device, Event
 from .util import KI
 from .konnected_property import KITempProperty, KIHumidProperty, \
                                 KIAlarmProperty, KIDoorProperty, \
                                 KIArmedProperty, KIMotionProperty
-from .konnected_api import KonnectedAPI
-from .konnected import konnected_dev, get_ip_address
+from .konnected import get_ip_address
+
 
 class KIDevice(Device):
     """Konnected device type."""
@@ -46,7 +44,7 @@ class KIDevice(Device):
         self.properties[property.name] = property
 
     def check(self):
-        return        
+        return
 
     def poll(self):
         """ Poll device for changes."""
@@ -77,30 +75,30 @@ class KonnectedDevice(KIDevice):
         """
         KIDevice.__init__(self, adapter, kdev.sn)
         self._context = 'https://webthings.io/schemas'
-        self._type = ['OnOffSwitch','Alarm' 
+        self._type = ['OnOffSwitch', 'Alarm'
                       'DoorSensor']
         self.ki = KI(_config.endpoint)
         self.kurl = kdev.makeUrl("device")
         self.add_property(KIArmedProperty(self, self.ki))
         self.add_property(KIAlarmProperty(self, self.ki))
-        sensors=[]
-        dht=[]
-        ds18b20=[]
-        pinswitch ={
-            '1':{'pin':1},
-            '2':{'pin':2},
-            '3':{'pin':5},
-            '4':{'pin':6},
-            '5':{'pin':7},
-            '6':{'pin':9}
+        sensors = []
+        dht = []
+        ds18b20 = []
+        pinswitch = {
+            '1': {'pin': 1},
+            '2': {'pin': 2},
+            '3': {'pin': 5},
+            '4': {'pin': 6},
+            '5': {'pin': 7},
+            '6': {'pin': 9}
         }
-        dhtswitch ={
-            '1':{'pin':1,"poll_interval":2},
-            '2':{'pin':2,"poll_interval":2},
-            '3':{'pin':5,"poll_interval":2},
-            '4':{'pin':6,"poll_interval":2},
-            '5':{'pin':7,"poll_interval":2},
-            '6':{'pin':9,"poll_interval":2}
+        dhtswitch = {
+            '1': {'pin': 1, "poll_interval": 2},
+            '2': {'pin': 2, "poll_interval": 2},
+            '3': {'pin': 5, "poll_interval": 2},
+            '4': {'pin': 6, "poll_interval": 2},
+            '5': {'pin': 7, "poll_interval": 2},
+            '6': {'pin': 9, "poll_interval": 2}
         }
         # todo use proper device matching serial number, or serial 0
         if (_config.devices):
@@ -108,22 +106,22 @@ class KonnectedDevice(KIDevice):
             logging.debug(_config.devices[0]['zones'])
             for zone in _config.devices[0]['zones']:
                 if (zone['sensortype'] == 'door'):
-                    sensors.append(pinswitch.get(zone['zone'],None))
+                    sensors.append(pinswitch.get(zone['zone'], None))
                     self.add_property(KIDoorProperty(self, self.ki,
                                                      int(zone['zone']),
                                                      zone['zonename']))
                 elif (zone['sensortype'] == 'window'):
-                    sensors.append(pinswitch.get(zone['zone'],None))
+                    sensors.append(pinswitch.get(zone['zone'], None))
                     self.add_property(KIDoorProperty(self, self.ki,
                                                      int(zone['zone']),
                                                      zone['zonename']))
                 elif (zone['sensortype'] == 'motion'):
-                    sensors.append(pinswitch.get(zone['zone'],None))
+                    sensors.append(pinswitch.get(zone['zone'], None))
                     self.add_property(KIMotionProperty(self, self.ki,
                                                        int(zone['zone']),
                                                        zone['zonename']))
                 elif (zone['sensortype'] == 'dht'):
-                    dht.append(dhtswitch.get(zone['zone'],None))
+                    dht.append(dhtswitch.get(zone['zone'], None))
                     self.add_property(KITempProperty(self, self.ki,
                                                      int(zone['zone']),
                                                      zone['zonename']))
@@ -131,19 +129,17 @@ class KonnectedDevice(KIDevice):
                                                       int(zone['zone']),
                                                       zone['zonename']))
                 elif (zone['sensortype'] == 'ds18b20'):
-                    ds18b20.append(dhtswitch.get(zone['zone'],None))
+                    ds18b20.append(dhtswitch.get(zone['zone'], None))
                     self.add_property(KITempProperty(self, self.ki,
                                                      int(zone['zone']),
                                                      zone['zonename']))
-        self.add_zone_events();
-        self.add_action('toggle',
-        {
+        self.add_zone_events()
+        self.add_action('toggle', {
             'title': 'Arm/Disarm',
             'description': 'Arm/Disarm',
-            '@type':'ToggleAction'
+            '@type': 'ToggleAction'
         })
-        self.add_action('siren',
-        {
+        self.add_action('siren', {
             'title': 'Siren',
             'description': 'Sound the siren'
         })
@@ -156,19 +152,18 @@ class KonnectedDevice(KIDevice):
     def provision_dev(self, interface, kdev, sensors, dht, ds18b20):
         ip = get_ip_address(interface)
         port = 8001
-        actuators = [{"pin":8,"trigger":1}]
+        actuators = [{"pin": 8, "trigger": 1}]
         kdev.provision(ip, port, sensors, actuators, dht, ds18b20)
 
     def sound_alarm(self, on):
         logging.debug("sound_alarm")
-        payload = {"pin":8,
-                   "state":1,
-                   "momentary":500}
+        payload = {"pin": 8,
+                   "state": 1,
+                   "momentary": 120000}
         if on is False:
-            payload = {"pin":8,
-                       "state":0}
+            payload = {"pin": 8,
+                       "state": 0}
         payload = json.dumps(payload)
-        logging.debug("about to go in")
         headers = {'Content-Type': 'application/json'}
         try:
             req = urllib.request.Request(self.kurl,
@@ -182,7 +177,7 @@ class KonnectedDevice(KIDevice):
         except ConnectionResetError:
             print("==> ConnectionResetError")
             pass
-        except timeout: 
+        except timeout:
             print("==> Timeout")
             pass
         logging.debug("Finished setting alarm")
@@ -190,34 +185,22 @@ class KonnectedDevice(KIDevice):
 
     def perform_action(self, action):
         # can do a while here to loop for a bit and then turn it off
-        # or can just leave it on until user shuts it off      
+        # or can just leave it on until user shuts it off
         logging.debug('perform action')
-        logging.debug(action.name)  
+        logging.debug(action.name)
         if action.name == 'siren':
             logging.debug('Konnected.perform_action: sound the alarm')
             if self.ki.get_alarm():
-                logging.debug('set property')
-                #self.set_property('alarm', False)
-                logging.debug('set alarm')
                 self.ki.set_alarm(False)
                 self.sound_alarm(False)
             else:
-                logging.debug('set property')
-                #self.set_property('alarm', True)
-                logging.debug('set alarm')
                 self.ki.set_alarm(True)
                 self.sound_alarm(True)
         if action.name == 'toggle':
             logging.debug('Konnected.perform_action: arm or disarm')
             if self.ki.get_armed():
-                logging.debug('set property')
-                #self.set_property('armed', False)
-                logging.debug('set armed')
                 self.ki.set_armed(False)
             else:
-                logging.debug('set property')
-                #self.set_property('armed', True)
-                logging.debug('set armed')
                 self.ki.set_armed(True)
         action.finish()
         # todo: actually sound the alarm or silence it
@@ -225,12 +208,12 @@ class KonnectedDevice(KIDevice):
 
     def add_zone_events(self):
         self.add_event('zone_open', {
-            'title': 'ZoneOpen', 'label':'ZoneOpen',
+            'title': 'ZoneOpen', 'label': 'ZoneOpen',
             'description': 'Zone opened',
             'type': 'string'
         })
         self.add_event('zone_closed', {
-            'title': 'ZoneClosed', 'label':'ZoneClosed',
+            'title': 'ZoneClosed', 'label': 'ZoneClosed',
             'description': 'Zone closed',
             'type': 'string'
         })
@@ -242,9 +225,8 @@ class KonnectedDevice(KIDevice):
         if self.ki.has_event():
             self.check_send_event(self.ki.next_event())
 
-
     """ Check if a trigger occured and if so send event """
     def check_send_event(self, event):
-        wtevent = Event(self, event.name(), event.get_zone() )
+        wtevent = Event(self, event.name(), event.get_zone())
         self.event_notify(wtevent)
         logging.info('New event ' + event.name())
