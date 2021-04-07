@@ -13,36 +13,26 @@ After upgrade the addon the pages must be reloaded before the new attributes are
  * Initial release.
 
 ## Konnected things have the following properties and events
- * IsOpenZone1...IsOpenZone12 (a boolean event, zones 1-12)
- * Temp (property)
- * Humidity (property)
+ * Armed (a boolean property, set by the toggle action)
+ * Siren (alarm property) set when alarm is triggered
+ * zone_open (Event triggered when door or motion occurs)
+ * zone_closed (Event triggered when door or motion occurs)
+ * Optional properties depend on configuration
+ * Temperature (optional number property)
+ * Humidity (optional integer property)
+ * Door (optional door or window property, open or closed)
+ * Motion (optional motion property, motion or no motion)
+
 
 ## Configuration
 Configure the log level and the interface (wireless or wired end point name)
 
 ## Example
-Turn the lamp in bedroom only on weekdays
-`if the time of day is 06:13 and DateTime is not weekend, turn BedroomLamp on
+Turn on the lamp in bedroom when motion occurs after dark in the family room
+`if Konnected-xxxxx is Family Room Motion and DateTime is Dark, turn BedroomLamp on`
 
-To start the fan evey hour and switch it of after 5 minutes  
-`if DateTime minute is 20, turn Fan on`  
-`if DateTime minute is 25, turn Fan off`
-
-To start the fan evey second hour when it is dark and switch it of after 5 minutes  
-`if DateTime is dark and DateTime minute is 20 and DateTime is even_hour, turn Fan on`  
-`if DateTime minute is 25, turn Fan off`
-
-If its only for 5 minutes
-`while DateTime minutes5 is 5, turn Fan on`
-
-A motion sensor is only active between 10:00--10:59 
-`if DateTime Hour is greater than 9 and DateTime Hour is less than 11 and Motion sensor is motion, turn Light on`
-
-Open blinds 15 minutes before sunrise (configure -15 for offset mins)
-`if DateTime event "Sunrise offset -15 mins" occurs, do Scene Controller action "AllOpen"`
-
-Close blinds because the sun hits your eye like a big pizza pie (look at controller for az/el parameters when blinded)
-`if DateTime Azimuth is greater than -112, DateTime Azimuth is less than -95, DateTime Elevation is less than 7, DateTime Elevation is greater than 2, set Blind-1 Level to 50`
+Sound alarm when zone is breached
+`if Kon-xxxx event "ZoneOpen" occurs, and Kon-xxx is Armed do Kon-xxxx action "Siren"`
 
 ## Bugs
 
