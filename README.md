@@ -9,7 +9,7 @@ After upgrade the addon the pages must be reloaded before the new attributes are
 
 ## Release notes ##
 
-0.0.1
+0.0.2
  * Initial release.
 
 ## Konnected things have the following properties and events
