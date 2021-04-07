@@ -1,4 +1,4 @@
-"""Adapter for DateTime adapter for WebThings Gateway."""
+"""Adapter for Konnected devices for WebThings Gateway."""
 
 import logging
 import time
@@ -8,6 +8,7 @@ from .konnected_device import KonnectedDevice
 from pkg import konnected
 from pkg import endpoint
 from .konnected_api import KonnectedAPI
+
 
 class KonnectedAdapter(Adapter):
     """Konnected Adapter to support Konnected.io alarm board."""
@@ -23,9 +24,7 @@ class KonnectedAdapter(Adapter):
                          'konnected-adapter',
                          verbose=verbose)
         self._config = Config(self.package_name)
-        logging.debug('about to KonnectedApi')
         self.api_handler = KonnectedAPI(self, verbose=verbose)
-        logging.debug('just KonnectedApi')
         endpoint.start_kserver(self._config.endpoint, self)
         self.start_pairing(1)
 
@@ -42,7 +41,7 @@ class KonnectedAdapter(Adapter):
             logging.getLogger().setLevel(logging.WARNING)
         logging.info("Log level %s", log_level)
 
-        devs=konnected.findDevices()
+        devs = konnected.findDevices()
         self.kdevs = devs
         for dev in devs:
             if self.get_device(dev.sn) is None:

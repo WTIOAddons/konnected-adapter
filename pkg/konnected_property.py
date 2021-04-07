@@ -63,14 +63,15 @@ class KITempProperty(KonnectedProperty):
     """Minutes integer property"""
     def __init__(self, device, ki, zone, title):
         KonnectedProperty.__init__(self, device,
-                                   'temp_'+str(zone), 
-                                   {'title': title,
-                                    'label': title,
-                                    '@type': 'LevelProperty',
-                                    'type': 'number',
-                                    'unit': 'degree celsius',
-                                    'readOnly': True,
-                                    'minimum': -40, 'maximum': 80})
+                                   'temp_'+str(zone), {
+                                       'title': title,
+                                       'label': title,
+                                       '@type': 'LevelProperty',
+                                       'type': 'number',
+                                       'unit': 'degree celsius',
+                                       'readOnly': True,
+                                       'minimum': -40, 'maximum': 80
+                                   })
         self.ki = ki
 
     def get_new_value(self):
@@ -81,29 +82,33 @@ class KIHumidProperty(KonnectedProperty):
     """Hour integer property type."""
     def __init__(self, device, ki, zone, title):
         KonnectedProperty.__init__(self, device,
-                                   'humidity_'+str(zone), 
-                                   {'title': title,
-                                    'label': title,
-                                    '@type': 'LevelProperty',
-                                    'type': 'number',
-                                    'unit': 'percent',
-                                    'readOnly': True,
-                                    'minimum': 0,
-                                    'maximum': 100})
+                                   'humidity_'+str(zone), {
+                                       'title': title,
+                                       'label': title,
+                                       '@type': 'LevelProperty',
+                                       'type': 'number',
+                                       'unit': 'percent',
+                                       'readOnly': True,
+                                       'minimum': 0,
+                                       'maximum': 100
+                                   })
         self.ki = ki
 
     def get_new_value(self):
         return self.ki.get_humidity()
 
+
 class KIArmedProperty(KonnectedProperty):
     """Armed boolean property type."""
     def __init__(self, device, ki):
         KonnectedProperty.__init__(self, device,
-                                  'armed', {'title': 'Armed',
-                                               'label': 'Armed',
-                                               'type': 'boolean',
-                                               '@type': 'OnOffProperty',
-                                               'readOnly': False})
+                                   'armed', {
+                                       'title': 'Armed',
+                                       'label': 'Armed',
+                                       'type': 'boolean',
+                                       '@type': 'OnOffProperty',
+                                       'readOnly': False
+                                   })
         self.ki = ki
 
     def get_new_value(self):
@@ -117,42 +122,48 @@ class KIAlarmProperty(KonnectedProperty):
     """Alarm integer property type."""
     def __init__(self, device, ki):
         KonnectedProperty.__init__(self, device,
-                                  'alarm', {'title': 'Siren',
-                                               'label': 'Siren',
-                                               'type': 'boolean',
-                                               '@type': 'AlarmProperty',
-                                               'readOnly': True})
+                                   'alarm', {
+                                       'title': 'Siren',
+                                       'label': 'Siren',
+                                       'type': 'boolean',
+                                       '@type': 'AlarmProperty',
+                                       'readOnly': True
+                                   })
         self.ki = ki
 
     def get_new_value(self):
         return self.ki.get_alarm()
 
+
 class KIDoorProperty(KonnectedProperty):
     """Door binary property type."""
     def __init__(self, device, ki, zone, title):
         KonnectedProperty.__init__(self, device,
-                                  'zone_'+str(zone), 
-                                  {'title': title,
-                                   'label': title,
-                                   'type': 'boolean',
-                                   '@type': 'OpenProperty',
-                                   'readOnly': True})
+                                   'zone_'+str(zone), {
+                                       'title': title,
+                                       'label': title,
+                                       'type': 'boolean',
+                                       '@type': 'OpenProperty',
+                                       'readOnly': True
+                                   })
         self.ki = ki
         self.zone = zone
 
     def get_new_value(self):
         return self.ki.get_zone_status(self.zone)
 
+
 class KIMotionProperty(KonnectedProperty):
     """Motion integer property type."""
     def __init__(self, device, ki, zone, title):
         KonnectedProperty.__init__(self, device,
-                                  'zone_'+str(zone), 
-                                  {'title': title,
-                                   'label': title,
-                                   'type': 'boolean',
-                                   '@type': 'MotionProperty',
-                                   'readOnly': True})
+                                   'zone_'+str(zone), {
+                                       'title': title,
+                                       'label': title,
+                                       'type': 'boolean',
+                                       '@type': 'MotionProperty',
+                                       'readOnly': True
+                                   })
         self.ki = ki
         self.zone = zone
 
