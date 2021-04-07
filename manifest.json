@@ -79,7 +79,7 @@
                                 }
                             },
                             "description": "Zone",
-                            "type": "object"                        
+                            "type": "object"
                         },
                         "description": "List of zones",
                         "type": "array"
@@ -102,5 +102,5 @@
     }
   },
   "short_name": "Konnected",
-  "version": "0.0.2"
+  "version": "0.0.3"
 }
