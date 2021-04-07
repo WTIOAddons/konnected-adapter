@@ -61,15 +61,16 @@ class KonnectedProperty(Property):
 # label is shown in thing
 class KITempProperty(KonnectedProperty):
     """Minutes integer property"""
-    def __init__(self, device, ki):
+    def __init__(self, device, ki, zone, title):
         KonnectedProperty.__init__(self, device,
-                                  'Temp', {'title': 'Temperature',
-                                             'label': 'Temperature',
-                                             '@type': 'LevelProperty',
-                                             'type': 'number',
-                                             'unit': 'degree celsius',
-                                             'readOnly': True,
-                                             'minimum': -80, 'maximum': 80})
+                                   'temp_'+str(zone), 
+                                   {'title': title,
+                                    'label': title,
+                                    '@type': 'LevelProperty',
+                                    'type': 'number',
+                                    'unit': 'degree celsius',
+                                    'readOnly': True,
+                                    'minimum': -40, 'maximum': 80})
         self.ki = ki
 
     def get_new_value(self):
@@ -78,16 +79,17 @@ class KITempProperty(KonnectedProperty):
 
 class KIHumidProperty(KonnectedProperty):
     """Hour integer property type."""
-    def __init__(self, device, ki):
+    def __init__(self, device, ki, zone, title):
         KonnectedProperty.__init__(self, device,
-                                  'humidity', {'title': 'Humidity',
-                                               'label': 'Humidity',
-                                               '@type': 'LevelProperty',
-                                               'type': 'number',
-                                               'unit': 'percent',
-                                               'readOnly': True,
-                                               'minimum': 0,
-                                               'maximum': 100})
+                                   'humidity_'+str(zone), 
+                                   {'title': title,
+                                    'label': title,
+                                    '@type': 'LevelProperty',
+                                    'type': 'number',
+                                    'unit': 'percent',
+                                    'readOnly': True,
+                                    'minimum': 0,
+                                    'maximum': 100})
         self.ki = ki
 
     def get_new_value(self):
