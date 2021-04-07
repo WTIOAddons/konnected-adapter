@@ -73,9 +73,10 @@ class KITempProperty(KonnectedProperty):
                                        'minimum': -40, 'maximum': 80
                                    })
         self.ki = ki
+        self.zone = zone
 
     def get_new_value(self):
-        return self.ki.get_temperature()
+        return self.ki.get_zone_status(self.zone)
 
 
 class KIHumidProperty(KonnectedProperty):
@@ -93,9 +94,10 @@ class KIHumidProperty(KonnectedProperty):
                                        'maximum': 100
                                    })
         self.ki = ki
+        self.zone = zone
 
     def get_new_value(self):
-        return self.ki.get_humidity()
+        return self.ki.get_zone_humi(self.zone)
 
 
 class KIArmedProperty(KonnectedProperty):
