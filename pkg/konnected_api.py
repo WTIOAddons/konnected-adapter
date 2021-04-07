@@ -1,3 +1,5 @@
+"""API for Konnected adapter for WebThings Gateway."""
+
 import logging
 from gateway_addon import APIHandler
 
@@ -8,5 +10,5 @@ class KonnectedAPI(APIHandler):
         APIHandler.__init__(self, 'konnected-api', verbose)
 
     def handle_request(self, request):
-		logging.debug("handle request")
+        logging.debug("handle request")
         return super().handle_request(self, request)

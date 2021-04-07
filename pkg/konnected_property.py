@@ -104,10 +104,10 @@ class KIArmedProperty(KonnectedProperty):
         KonnectedProperty.__init__(self, device,
                                    'armed', {
                                        'title': 'Armed',
-                                        'label': 'Armed',
-                                        'type': 'boolean',
-                                        '@type': 'OnOffProperty',
-                                        'readOnly': False
+                                       'label': 'Armed',
+                                       'type': 'boolean',
+                                       '@type': 'OnOffProperty',
+                                       'readOnly': False
                                    })
         self.ki = ki
 
@@ -124,10 +124,10 @@ class KIAlarmProperty(KonnectedProperty):
         KonnectedProperty.__init__(self, device,
                                    'alarm', {
                                        'title': 'Siren',
-                                        'label': 'Siren',
-                                        'type': 'boolean',
-                                        '@type': 'AlarmProperty',
-                                        'readOnly': True
+                                       'label': 'Siren',
+                                       'type': 'boolean',
+                                       '@type': 'AlarmProperty',
+                                       'readOnly': True
                                    })
         self.ki = ki
 

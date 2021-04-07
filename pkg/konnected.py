@@ -89,7 +89,7 @@ class konnected_dev:
     def provision(self, ip, port, sensors, actuators, dht_sensors,
                   ds18b20_sensors):
         logging.debug('provisioning')
-        payload = {"endpoint_type":"rest",
+        payload = {"endpoint_type": "rest",
                    "endpoint": "http://"+ip+":"+str(port)+"/api/konnected",
                    "token": "WebThings",
                    "sensors": sensors,

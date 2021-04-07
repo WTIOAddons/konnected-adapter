@@ -1,4 +1,4 @@
-"""Adapter for DateTime adapter for WebThings Gateway."""
+"""Adapter for Konnected devices for WebThings Gateway."""
 
 import logging
 import time
