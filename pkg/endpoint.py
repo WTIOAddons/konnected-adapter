@@ -32,11 +32,11 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
                     device = self.adapter.get_device(str(serial))
                     # todo if can't find device yet, see if app will retry
                     if device is not None:
-                        if data.has_key('state'):
+                        if 'state' in data:
                             device.ki.set_pin(data['pin'], data['state'])
-                        if data.has_key('temp'):
+                        if 'temp' in data:
                             device.ki.set_temp_pin(data['pin'], data['temp'])
-                        if data.has_key('humi'):
+                        if 'humi' in data:
                             device.ki.set_humi_pin(data['pin'], data['humi'])
                 self.send_response(200)
             else:
