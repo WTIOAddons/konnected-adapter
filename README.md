@@ -9,6 +9,9 @@ After upgrade the addon the pages must be reloaded before the new attributes are
 
 ## Release notes ##
 
+0.0.4
+ * Use this release; major bug in 0.0.3 with zone_closed event
+
 0.0.3
  * Initial release.
 
