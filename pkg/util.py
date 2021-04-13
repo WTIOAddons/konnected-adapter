@@ -29,7 +29,7 @@ class KI():
     def __init__(self, endpoint, access):
         self.endpoint = endpoint
         self.alarm = False
-        self.armed = False
+        self.armed = "unlocked"
         self.access = access
         logging.info('endpoint: %s', self.endpoint)
         self.eventlist = []

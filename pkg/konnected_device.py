@@ -75,8 +75,8 @@ class KonnectedDevice(KIDevice):
         """
         KIDevice.__init__(self, adapter, kdev.sn)
         self._context = 'https://webthings.io/schemas'
-        self._type = ['Lock', 'Alarm'
-                      'DoorSensor']
+        self._type = ['Lock'] # , 'Alarm'
+                      # 'DoorSensor']
         self.ki = KI(_config.endpoint, _config.access)
         self.kurl = kdev.makeUrl("device")
         self.add_property(KIArmedProperty(self, self.ki))
