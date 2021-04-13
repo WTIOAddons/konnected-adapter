@@ -20,6 +20,9 @@ class Config(Database):
             self.log_level = config['log_level']
             self.devices = None
             self.devices = config['devices']
+            self.access = 0
+            if 'access' in config
+                self.access = config['access']
             # logging.debug(self.devices)
         except Exception as ex:
             logging.exception('Strange config:' + str(ex), config)

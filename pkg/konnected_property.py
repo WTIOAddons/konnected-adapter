@@ -107,9 +107,9 @@ class KIArmedProperty(KonnectedProperty):
                                    'armed', {
                                        'title': 'Armed',
                                        'label': 'Armed',
-                                       'type': 'boolean',
-                                       '@type': 'OnOffProperty',
-                                       'readOnly': False
+                                       'type': 'string',
+                                       '@type': 'LockedProperty',
+                                       'readOnly': True
                                    })
         self.ki = ki
 
