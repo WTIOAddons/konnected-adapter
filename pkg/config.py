@@ -21,7 +21,7 @@ class Config(Database):
             self.devices = None
             self.devices = config['devices']
             self.access = 0
-            if 'access' in config
+            if 'access' in config:
                 self.access = config['access']
             # logging.debug(self.devices)
         except Exception as ex:
