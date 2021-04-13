@@ -210,7 +210,7 @@ class KonnectedDevice(KIDevice):
                 self.ki.set_alarm(True)
                 self.sound_alarm(True)
         if action.name == 'toggle':
-            if action.input['access'] == ki.get_access():
+            if action.input['access'] == self.ki.get_access():
                 logging.debug('Konnected.perform_action: arm or disarm')
                 if self.ki.get_armed() == "locked":
                     self.ki.set_armed("unlocked")
