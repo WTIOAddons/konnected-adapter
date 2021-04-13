@@ -1,7 +1,7 @@
 {
   "name": "konnected-adapter",
   "display_name": "Konnected Adapter",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Konnected addon for WebThingsIO Gateway",
   "author": "wfahle",
   "main": "main.py",

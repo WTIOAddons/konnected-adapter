@@ -9,8 +9,13 @@ After upgrade the addon the pages must be reloaded before the new attributes are
 
 ## Release notes ##
 
+0.1.0
+ * Initial release for version that has access codes built in
+ * During config, enter the access code you will use
+ * On the Thing you create, that code is required to lock or unlock
+
 0.0.4
- * Use this release; major bug in 0.0.3 with zone_closed event
+ * Major bug in 0.0.3 with zone_closed event, fixed in 0.0.4
 
 0.0.3
  * Initial release.

@@ -26,10 +26,11 @@ class KIEvent():
 
 
 class KI():
-    def __init__(self, endpoint):
+    def __init__(self, endpoint, access):
         self.endpoint = endpoint
         self.alarm = False
-        self.armed = False
+        self.armed = "unlocked"
+        self.access = access
         logging.info('endpoint: %s', self.endpoint)
         self.eventlist = []
         self.zones = [None, None, None, None, None, None]
@@ -57,6 +58,9 @@ class KI():
 
     def get_armed(self):
         return self.armed
+
+    def get_access(self):
+        return self.access
 
     def set_armed(self, armed):
         self.armed = armed

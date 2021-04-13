@@ -75,9 +75,8 @@ class KonnectedDevice(KIDevice):
         """
         KIDevice.__init__(self, adapter, kdev.sn)
         self._context = 'https://webthings.io/schemas'
-        self._type = ['OnOffSwitch', 'Alarm'
-                      'DoorSensor']
-        self.ki = KI(_config.endpoint)
+        self._type = ['Lock']
+        self.ki = KI(_config.endpoint, _config.access)
         self.kurl = kdev.makeUrl("device")
         self.add_property(KIArmedProperty(self, self.ki))
         self.add_property(KIAlarmProperty(self, self.ki))
@@ -137,7 +136,20 @@ class KonnectedDevice(KIDevice):
         self.add_action('toggle', {
             'title': 'Arm/Disarm',
             'description': 'Arm/Disarm',
-            '@type': 'ToggleAction'
+            '@type': 'ToggleAction',
+            'input': {
+                'type': 'object',
+                'required': [
+                    'access'
+                ],
+                'properties': {
+                    'access': {
+                        'type': 'integer',
+                        'minimum': 0,
+                        'maximum': 9999
+                    }
+                }
+            }
         })
         self.add_action('siren', {
             'title': 'Siren',
@@ -197,13 +209,15 @@ class KonnectedDevice(KIDevice):
                 self.ki.set_alarm(True)
                 self.sound_alarm(True)
         if action.name == 'toggle':
-            logging.debug('Konnected.perform_action: arm or disarm')
-            if self.ki.get_armed():
-                self.ki.set_armed(False)
+            if action.input['access'] == self.ki.get_access():
+                logging.debug('Konnected.perform_action: arm or disarm')
+                if self.ki.get_armed() == "locked":
+                    self.ki.set_armed("unlocked")
+                else:
+                    self.ki.set_armed("locked")
             else:
-                self.ki.set_armed(True)
+                logging.info('Konnected toggle - bad code')
         action.finish()
-        # todo: actually sound the alarm or silence it
         return
 
     def add_zone_events(self):

@@ -35,6 +35,12 @@
           "description": "Interface on rpi that konnected will notify (wlan0)",
           "type": "string"
         },
+        "access": {
+          "description": "Access code for arm/disarm",
+          "type": "integer",
+          "min": 0,
+          "max": 9999
+        },
         "devices": {
             "items": {
                 "description": "A Konnected device",
@@ -102,5 +108,5 @@
     }
   },
   "short_name": "Konnected",
-  "version": "0.0.4"
+  "version": "0.1.0"
 }
