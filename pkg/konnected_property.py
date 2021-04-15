@@ -109,7 +109,7 @@ class KIArmedProperty(KonnectedProperty):
                                        'label': 'Armed',
                                        'type': 'string',
                                        '@type': 'LockedProperty',
-                                       'readOnly': True
+                                       'readOnly': True,
                                        'enum': [
                                            'locked',
                                            'unlocked',
