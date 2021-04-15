@@ -110,6 +110,11 @@ class KIArmedProperty(KonnectedProperty):
                                        'type': 'string',
                                        '@type': 'LockedProperty',
                                        'readOnly': True
+                                       'enum': [
+                                           'locked',
+                                           'unlocked',
+                                           'unknown'
+                                       ]
                                    })
         self.ki = ki
 
