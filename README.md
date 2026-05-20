@@ -9,6 +9,9 @@ After upgrade the addon the pages must be reloaded before the new attributes are
 
 ## Release notes ##
 
+0.1.5
+ * Use prebuilt wheels for Python 3.7 and 3.8 builds, source builds for 3.9+
+
 0.1.4
  * Fixed Linux cross-compile build by removing the obsolete `qemu` apt metapackage
 

@@ -19,7 +19,11 @@ rm -rf *.tgz package SHA256SUMS lib
 mkdir lib package
 
 # Pull down Python dependencies
+if [ "$PYTHON_VERSION" = "3.7" ] || [ "$PYTHON_VERSION" = "3.8" ]; then
+pip3 install -r requirements.txt -t lib --prefix ""
+else
 pip3 install -r requirements.txt -t lib --no-binary :all: --prefix ""
+fi
 
 # Put package together
 #cp -r lib pkg LICENSE README.md package.json manifest.json *.py package/
