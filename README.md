@@ -9,6 +9,10 @@ After upgrade the addon the pages must be reloaded before the new attributes are
 
 ## Release notes ##
 
+0.2.0
+ * Build matrix now produces working artifacts across all platform/Python combinations again after a long sequence of toolchain fixes
+ * Power-loss reconnection from 0.1.2 onward is the user-facing improvement that started this release cycle
+
 0.1.9
  * Pinned jsonschema below 4.18 for Python 3.7/3.8 builds so the dep chain stays on pure-Python pyrsistent and avoids the Rust-backed rpds-py that has no cp38 armv7 wheel
 
