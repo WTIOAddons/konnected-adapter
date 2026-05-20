@@ -9,6 +9,10 @@ After upgrade the addon the pages must be reloaded before the new attributes are
 
 ## Release notes ##
 
+0.1.2
+ * Reconnect automatically after the Konnected board reboots (e.g. power loss)
+ * Previously the device would stay detached in WebThings.io until removed and re-added
+
 0.1.1
  * Made Armed property into an enum to make it easier to use in rules
  * In 0.1.0 you had to type in "locked" or "unlocked" into the rule

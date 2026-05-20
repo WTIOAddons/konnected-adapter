@@ -44,12 +44,27 @@ class KonnectedAdapter(Adapter):
         devs = konnected.findDevices()
         self.kdevs = devs
         for dev in devs:
-            if self.get_device(dev.sn) is None:
+            existing = self.get_device(dev.sn)
+            if existing is None:
                 logging.debug('adding device %s', str(dev.sn))
                 self.handle_device_added(KonnectedDevice(self, dev,
                                                          self._config))
             else:
-                logging.debug('Device: %s was already created', dev.sn)
+                # The device object is still here from before, but
+                # rediscovery via SSDP means the board just came up
+                # (typically after a power cycle) and forgot its
+                # provisioning. Force its reconnect path to push the
+                # config back without waiting for the poll loop to
+                # notice the quiet period.
+                logging.debug('Device: %s rediscovered, forcing reconnect',
+                              dev.sn)
+                existing.last_seen = 0  # ensure maybe_reconnect runs
+                existing._last_reconnect_attempt = 0
+                try:
+                    existing.maybe_reconnect()
+                except Exception as ex:
+                    logging.exception('Reconnect for %s failed: %s',
+                                      dev.sn, ex)
         logging.debug('END Pairing')
 
     def cancel_pairing(self):
