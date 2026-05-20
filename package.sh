@@ -18,9 +18,13 @@ rm -rf *.tgz package SHA256SUMS lib
 # Prep new package
 mkdir lib package
 
-# Pull down Python dependencies
+# Pull down Python dependencies.
+#
+# For 3.7/3.8 we additionally apply constraints-py-legacy.txt to keep
+# transitive deps like cryptography on versions that still publish
+# cp37/cp38 wheels for all architectures we target (notably armv7).
 if [ "$PYTHON_VERSION" = "3.7" ] || [ "$PYTHON_VERSION" = "3.8" ]; then
-pip3 install -r requirements.txt -t lib --prefix ""
+pip3 install -r requirements.txt -c constraints-py-legacy.txt -t lib --prefix ""
 else
 pip3 install -r requirements.txt -t lib --no-binary :all: --prefix ""
 fi

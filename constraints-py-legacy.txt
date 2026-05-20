@@ -1,0 +1,13 @@
+# Constraints applied when building for Python 3.7 / 3.8.
+#
+# cryptography is a transitive dependency (pulled in by gateway-addon's
+# stack). Starting with cryptography 48 (Nov 2025) the project stopped
+# publishing cp38-abi3 wheels and only ships cp39+ wheels. On linux-arm
+# (armv7) there is no fallback wheel for 3.8, so pip tries to build from
+# source -> pulls in puccinialin to bootstrap Rust -> puccinialin requires
+# Python >=3.9 -> install fails.
+#
+# Pinning cryptography below 48 keeps us on a release that still ships
+# cp38-abi3 (and cp37-abi3) wheels for armv7. Re-evaluate when we drop
+# Python 3.8 from the build matrix.
+cryptography<48
