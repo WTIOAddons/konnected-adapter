@@ -9,6 +9,9 @@ After upgrade the addon the pages must be reloaded before the new attributes are
 
 ## Release notes ##
 
+0.1.4
+ * Fixed Linux cross-compile build by removing the obsolete `qemu` apt metapackage
+
 0.1.3
  * Modernized GitHub Actions release workflow (older action versions had been deprecated)
 
