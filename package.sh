@@ -25,6 +25,8 @@ mkdir lib package
 # cp37/cp38 wheels for all architectures we target (notably armv7).
 if [ "$PYTHON_VERSION" = "3.7" ] || [ "$PYTHON_VERSION" = "3.8" ]; then
 pip3 install -r requirements.txt -c constraints-py-legacy.txt -t lib --prefix ""
+elif [ "$PYTHON_VERSION = "3.9"]; then
+pip3 install -r requirements.txt -t lib --prefix ""
 else
 pip3 install -r requirements.txt -t lib --no-binary :all: --prefix ""
 fi
