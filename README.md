@@ -9,6 +9,9 @@ After upgrade the addon the pages must be reloaded before the new attributes are
 
 ## Release notes ##
 
+0.2.1
+ * Applied legacy dependency constraints to Python 3.9 builds as well, fixing linux-arm and linux-arm64 builds that were source-building rpds-py via maturin
+
 0.2.0
  * Build matrix now produces working artifacts across all platform/Python combinations again after a long sequence of toolchain fixes
  * Power-loss reconnection from 0.1.2 onward is the user-facing improvement that started this release cycle
