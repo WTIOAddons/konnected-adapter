@@ -51,6 +51,12 @@ jobs:
           - platform: 'linux-x64'
             pair: 'python:3.7'
             host-os: 'ubuntu-22.04'
+          # Same situation on macOS: macos-latest now resolves to macos-14
+          # (arm64), which setup-python@v5 has no 3.7 entry for. macos-13
+          # is the last x64 image and still has 3.7.
+          - platform: 'darwin-x64'
+            pair: 'python:3.7'
+            host-os: 'macos-13'
 
     runs-on: ${{ matrix.host-os }}
 
