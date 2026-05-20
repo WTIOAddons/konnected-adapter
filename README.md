@@ -9,6 +9,9 @@ After upgrade the addon the pages must be reloaded before the new attributes are
 
 ## Release notes ##
 
+0.1.6
+ * Pinned Python 3.7 build matrix entries to older runners (ubuntu-22.04, macos-13) since newer runner images no longer ship Python 3.7
+
 0.1.5
  * Use prebuilt wheels for Python 3.7 and 3.8 builds, source builds for 3.9+
 
