@@ -9,6 +9,9 @@ After upgrade the addon the pages must be reloaded before the new attributes are
 
 ## Release notes ##
 
+0.1.8
+ * Tightened the cryptography pin to <46 so linux-arm 3.7/3.8 builds use the dual-tagged manylinux_2_28 armv7 wheel and don't fall back to a Rust source build
+
 0.1.7
  * Pinned cryptography below version 48 for Python 3.7/3.8 builds (cryptography 48 dropped cp38 wheels for armv7, breaking linux-arm builds)
 
