@@ -1,13 +1,21 @@
 # Constraints applied when building for Python 3.7 / 3.8.
 #
 # cryptography is a transitive dependency (pulled in by gateway-addon's
-# stack). Starting with cryptography 48 (Nov 2025) the project stopped
-# publishing cp38-abi3 wheels and only ships cp39+ wheels. On linux-arm
-# (armv7) there is no fallback wheel for 3.8, so pip tries to build from
-# source -> pulls in puccinialin to bootstrap Rust -> puccinialin requires
-# Python >=3.9 -> install fails.
+# stack). Modern cryptography releases are problematic for our older
+# build toolchain (Raspbian Buster, glibc 2.28) in two ways:
 #
-# Pinning cryptography below 48 keeps us on a release that still ships
-# cp38-abi3 (and cp37-abi3) wheels for armv7. Re-evaluate when we drop
-# Python 3.8 from the build matrix.
-cryptography<48
+#   - cryptography 46+ drops the `manylinux_2_28_armv7l` wheel tag and
+#     only ships `manylinux_2_31_armv7l` wheels (glibc 2.31+). The
+#     Buster-based linux-arm toolchain image has glibc 2.28, so pip
+#     refuses those wheels and falls back to a source build.
+#   - The source build uses maturin, which auto-bootstraps Rust via
+#     `puccinialin`. puccinialin itself requires Python >=3.9, so the
+#     install aborts on our 3.7 / 3.8 build matrix entries.
+#
+# Pinning cryptography < 46 keeps us on releases that publish dual-tagged
+# `manylinux_2_28_armv7l.manylinux_2_31_armv7l` wheels (cp37-abi3, which
+# also installs on cp38 via abi3 forward-compat). No source build, no
+# Rust required.
+#
+# Re-evaluate when we drop Python 3.7 / 3.8 from the build matrix.
+cryptography<46
